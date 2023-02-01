@@ -1,0 +1,144 @@
+import { HeroPattern } from '@/components/HeroPattern'
+import { Heading } from '@/components/Heading'
+
+export const description =
+  'Learn everything there is to know about the Protocol API and integrate Protocol into your product.'
+
+export const sections = [
+  { title: 'List', id: 'list' },
+  { title: 'Tuple', id: 'tuple' },
+  { title: 'String', id: 'string' },
+  { title: 'Dictionary', id: 'dictionary' },
+  { title: 'Set', id: 'set' },
+]
+
+<HeroPattern />
+
+# Data Structures
+
+Why do all these different data structures exist. Lua just has a table, why can’t python just have a table
+
+Data structure are a way of organizing you data based on the problems you are trying to solve
+
+You might use tuples to prevent changes to you data
+
+You might use lists when dealing with a bunch numbers
+
+You might use a string to provide a visual representation to your data
+
+You may use a dictionary to create associations between your data
+
+You might use a set to remove duplicates in you data
+
+<Heading level={2} id="list" />
+## List {{ anchor: false }}
+
+<CodeGroup >
+
+```python {{ title: 'Average'}}
+numbers = [1, 2, 3, 4]
+total = 0
+for n in numbers:
+  total += n
+average = total / len(numbers)
+# average = 2.5 
+```
+
+```python {{ title: 'Insert' }}
+numbers = [1, 2, 3, 4]
+numbers.append(5)
+# numbers = [1, 2, 3, 4, 5]
+```
+
+```python {{ title: 'Get Length' }}
+numbers = [1, 2, 3, 4]
+length = len(numbers)
+# length = 4
+```
+```python {{ title: 'Get Length 2' }}
+numbers = [1, 2, 3, 4]
+length = len(numbers)
+# length = 4
+```
+```python {{ title: 'Get Length 3' }}
+numbers = [1, 2, 3, 4]
+length = len(numbers)
+# length = 4
+```
+
+
+```python {{ language: 'sort' }}
+# Install the Protocol PHP SDK
+composer require protocol/sdk
+```
+
+</CodeGroup>
+
+- Average
+- List
+- For
+- Break
+- Continue
+- List operators
+- Median
+- For else
+- Insert item
+- List slice
+- List accessor
+- Remove item from list
+- Sorting list
+- Sort key
+- Len
+- List set item at
+- Item in list
+- Iterate list
+
+<Heading level={2} id="tuple" />
+## Tuple {{ anchor: false }}
+
+- Immutability
+- Tuple
+- Tuples are immutable
+- Tuple
+- Tuple unpacking
+- Tuple is a sequence
+- Join tuples
+- Multiple assignment
+- Unpacking assignment
+
+<Heading level={2} id="string" />
+## String {{ anchor: false }}
+
+- More strings
+- Import String
+- Sequence
+- Multiline string
+- Slicing strings
+- Split
+- String escaping
+- Ord and chr
+- Sequence multiplier
+
+<Heading level={2} id="dictionary" />
+## Dictionary {{ anchor: false }}
+
+- Keys, values, items
+- Dict accessing item
+- Set key
+- If key in dict
+- Update dict with other dict
+- Remove item
+- Delete ky
+- Looping dictionaries
+
+<Heading level={2} id="set" />
+## Set {{ anchor: false }}
+
+- Union
+- Add to set
+- Intersection
+- Update 
+- In set
+- Count and index methods
+- And or xor
+- Set operations
