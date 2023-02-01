@@ -5,7 +5,13 @@ export const description =
   'Learn everything there is to know about the Protocol API and integrate Protocol into your product.'
 
 export const sections = [
-  { title: 'Constants', id: 'constants' },
+  { title: 'Literal Constants', id: 'constants' },
+  { title: 'Printing', id: 'printing' },
+  { title: 'Comments', id: 'comments' },
+  // { title: 'Printing', id: 'printing' },
+  // { title: 'Printing', id: 'printing' },
+  // { title: 'Printing', id: 'printing' },
+  // { title: 'Constants', id: 'constants' },
   { title: 'Variables', id: 'variables' },
 ]
 
@@ -14,53 +20,131 @@ export const sections = [
 # Basics
 
 A literal constant can be one of several different data
-types: `int`, `float`, `str`, and `bool`. You can print constants
+types: `int`, `float`, and `str`. You can print constants
 and you can sign them to variables. They should be named a
 certain way. Certain data types can be converted between
 each other. They can also be printed out in specific ways
 
-
-<Note>
-You can do it!
-</Note>
-
-- Why do different data types exist.
-- Why would I use comments.
-- Why should I name variables a certain way.
-
-<div className="not-prose">
-  <Button
-    href="/conversations"
-    variant="text"
-    arrow="right"
-    children="I am ready!"
-  />
-</div>
-
+- Why do different data types exist?
 
 <Heading level={2} id="constants" />
-## Constants {{ anchor: false }}
+## Literal Constants {{ anchor: false }}
 
-- Literal constants
-- Number
-- String
-- String quoting
-- Printing
-- Comments
-- Data types
+A literal constant can be one of several different data
+types: `int`, `float`, and `str`.
+
+<CodeGroup >
+
+```python {{ title: 'int'}}
+# An integer is a whole number
+1 
+1245
+-500
+```
+
+```python {{ title: 'float'}}
+# A floating point number has a decimal value
+1.5
+1500.5
+-1.0
+```
+
+```python {{ title: 'str'}}
+# A string is a sequence of characters.
+# You can specify a string with quotes
+"Hello"
+"this is a string"
+'Single quotes work too'
+```
+
+</CodeGroup >
+
+<Heading level={2} id="printing" />
+## Printing {{ anchor: false }}
+
+The `print` function is used to display output text from your program.
+We will cover functions more in another lesson, 
+
+```python
+print("This is how you print")
+print("I can print more with another print call")
+```
+**Exercise:** Use the print function to print the following values: `123`, `1.234`, `Hello, World!`
+<Note>
+This will be 3 separate print calls
+</Note>
+
+```python {{ title: 'Print exercise'}}
+# This is your first editor type your code below
+# press the play button to run your code
+```
+
+<Heading level={2} id="comments" />
+## Comments {{ anchor: false }}
+
+Comments are text inside your code that does not execute. 
+You have already seen some comments above. These are used for 
+documenting what your code is doing, taking notes for yourself, and 
+preventing certain sections of your code from running. In Python a comment
+starts with the `#` character. 
+
+You can also comment out the currently selected
+lines with the editor shortcut: {`${/(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? '⌘' : 'Ctrl '}`} + `/`
+
+```python
+# This is comment
+print("hi") # this is also a comment
+```
+
+**Exercise:** Comment out the lines according to their string values 
+
+
+```python {{ title: 'Comment exercise'}}
+print("comment this line out")
+print("also comment this line out")
+print("print this line")
+```
+
+
+
+***I AM HERE***
+
+
+
+
+
+## help
+
+how to use the help function
+
+
 
 <Heading level={2} id="variables" />
 ## Variables {{ anchor: false }}
 
-- Variables
+- Why should I name variables a certain way.
+- Get the variable type
+- print variables
+- naming conventions
+- FString
+
+
+
+
+## Prompt User for Input
+
+- input() - run the following code and input your name
+
+
+- String operations
+- Variable casting
+
+
+## print formatting
 - String formatting
 - String operations
-- Get variable type
-- Del
-- input()
 - Variable casting
 - Naming conventions
 - Print variables
 - FString
-- String formatting
 
