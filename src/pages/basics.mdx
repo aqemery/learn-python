@@ -1,6 +1,7 @@
 import { HeroPattern } from '@/components/HeroPattern'
 import { Heading } from '@/components/Heading'
 import { Hotkey } from '@/components/Hotkey'
+import { PyEditor } from '@/components/Editor'
 
 export const description =
   'Learn everything there is to know about the Protocol API and integrate Protocol into your product.'
@@ -70,10 +71,27 @@ We will cover functions more in another lesson,
 print("This is how you print")
 print("I can print more with another print call")
 ```
-**Exercise:** Use the print function to print the following values: `123`, `1.234`, `Hello, World!`
-<Note>
+
+### Exercise
+Use the print function to print the following values: `123`, `1.234`, `Hello, World!`.
+You can do this with 3 separate print calls, each on it's own line.
+{/* <Note>
 This will be 3 separate print calls
-</Note>
+</Note> */}
+
+
+
+<PyEditor
+  title='hello'
+  defaultCode="# This is your first editor type your code below
+    # press the play button to run your code"
+/>
+
+
+
+
+
+
 
 ```python {{ title: 'Print exercise'}}
 # This is your first editor type your code below
@@ -97,6 +115,7 @@ lines with the editor shortcut: <Hotkey/> + `/`
 print("hi") # this is also a comment
 ```
 
+
 **Exercise:** Comment out the lines according to their string values 
 
 
@@ -105,6 +124,17 @@ print("comment this line out")
 print("also comment this line out")
 print("print this line")
 ```
+
+```python
+import asyncio
+
+while(True):
+    await asyncio.sleep(1)
+    print('tick')
+```
+
+
+<PyEditor defaultCode={`print('test')`}/>
 
 
 
