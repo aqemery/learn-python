@@ -47,12 +47,26 @@ function reset() {
   pyodide.runPython(`
     globals().clear()
     import js
-    old_input = input
+    old_input_123 = input
     def input(prompt=None):
       js.pyprompt = prompt
-      return old_input(prompt)
+      return old_input_123(prompt)
+    input.__doc__ = old_input_123.__doc__
+
+    _test_print_list = []
+    old_print_123 = print
+    def print(*args, **kwargs):
+      sep = kwargs.get('sep', ' ')
+      end = kwargs.get('end', '\\n')
+      if 'end' in kwargs:
+        kwargs['flush'] = True
+      old_print_123(*args, **kwargs)
+      _test_print_list.append(sep.join(str(x) for x in args)+end)
+
+    print.__doc__ = old_print_123.__doc__
   `)
 }
+
 
 main().then((result) => {
   pyodide = result
@@ -123,7 +137,7 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
   )
 }
 
-export function PyEditor({ children, title, defaultCode }) {
+export function PyEditor({ children, title, defaultCode, checkCode, validation}) {
   const [code, setCode] = useState(defaultCode)
   const [output, setOutput] = useState()
   let [selectedIndex, setSelectedIndex] = useState(0)
@@ -166,12 +180,37 @@ export function PyEditor({ children, title, defaultCode }) {
       captureStdout('Error: Time limit exceeded')
     }, 5000)
 
+    reset()
     running = true
     pyodide
       .runPythonAsync(code)
       .then(() => {
         clearTimeout(tOut)
         running = false
+
+        pyodide.runPython(`_output = _test_print_list`)
+        let status = pyodide.runPython(validation)
+        status = status.toJs()
+        if (!status.get("done")){
+          console.log(status.get("message"))
+          // set message 
+
+          captureStdout(status.get("message"))
+
+        }
+        else if(checkCode != undefined){
+          const message = checkCode(code)
+          if(message != undefined){
+            console.log(message)
+
+            captureStdout(message)
+          }
+          else {
+            console.log(status.get("message"))
+            // success
+            captureStdout(status.get("message"))
+          }
+        }
       })
       .catch((err) => {
         clearTimeout(tOut)
@@ -183,7 +222,6 @@ export function PyEditor({ children, title, defaultCode }) {
             break
           }
         }
-
         lines.splice(1, to - 1)
         var newtext = lines.join('\n')
         captureStdout(newtext)
@@ -191,33 +229,8 @@ export function PyEditor({ children, title, defaultCode }) {
     setSelectedIndex(1)
   }
 
-  function clear() {
+  function clearCode() {
     setCode('')
-  }
-
-  function usePreventLayoutShift() {
-    let positionRef = useRef()
-    let rafRef = useRef()
-
-    useEffect(() => {
-      return () => {
-        window.cancelAnimationFrame(rafRef.current)
-      }
-    }, [])
-
-    return {
-      positionRef,
-      preventLayoutShift(callback) {
-        let initialTop = positionRef.current.getBoundingClientRect().top
-
-        callback()
-
-        rafRef.current = window.requestAnimationFrame(() => {
-          let newTop = positionRef.current.getBoundingClientRect().top
-          window.scrollBy(0, newTop - initialTop)
-        })
-      },
-    }
   }
 
   function useTabGroupProps(availableLanguages) {
@@ -249,10 +262,10 @@ export function PyEditor({ children, title, defaultCode }) {
 
   return (
     <>
-      <div class="not-prose my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10">
+      <div className="not-prose my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10">
         <Tab.Group {...tabGroupProps}>
           <CodeGroupHeader
-            title={'test'}
+            title={title}
             selectedIndex={tabGroupProps.selectedIndex}
           ></CodeGroupHeader>
 
@@ -274,7 +287,14 @@ export function PyEditor({ children, title, defaultCode }) {
             </Tab.Panel>
 
             <Tab.Panel>
-              <div className="h-96">Settings</div>
+              <div className="h-96">
+                - Settings
+                - perserve log
+                - return
+                - editor style
+                - size
+                - popout output
+              </div>
             </Tab.Panel>
           </Tab.Panels>
 

@@ -82,21 +82,31 @@ This will be 3 separate print calls
 
 
 <PyEditor
-  title='hello'
+  title='Print exercise'
   defaultCode="# This is your first editor type your code below
     # press the play button to run your code"
+  validation = {`
+status = {"done": False, "message": "Nice Job!"}
+if not "123\\n" in _output:
+  status["message"] = 'hmmm, did you print "123"?'
+elif not "1.234\\n" in _output:
+  status["message"] = 'hmmm, did you print "1.234"?'
+elif not "Hello, World!\\n" in _output:
+  status["message"] = 'hmmm, did you print "Hello, World!"?'
+else:
+  status["done"] = True
+status
+`}
+
+checkCode = { (code) => {
+  if (code.includes("print('123')") || code.includes('print("123")')) {
+      return "That's almost right! But try printing 123 without quotes"
+  }
+  if (code.includes("print('1.234')") || code.includes('print("1.234")')) {
+      return "That's almost right! But try printing 1.234 without quotes"
+  }
+}}
 />
-
-
-
-
-
-
-
-```python {{ title: 'Print exercise'}}
-# This is your first editor type your code below
-# press the play button to run your code
-```
 
 <Heading level={2} id="comments" />
 ## Comments {{ anchor: false }}
@@ -116,14 +126,33 @@ print("hi") # this is also a comment
 ```
 
 
-**Exercise:** Comment out the lines according to their string values 
+### Exercise 
 
+Comment out the lines according to their string values 
 
-```python {{ title: 'Comment exercise'}}
-print("comment this line out")
+<PyEditor
+  title='Comment exercise'
+  defaultCode='print("comment this line out")
 print("also comment this line out")
-print("print this line")
-```
+print("print this line")'
+  validation = {`
+status = {"done": True, "message": "Nice Job!"}
+if not ["print this line\\n"] == _output:
+  status["message"] = 'hmmm, you printed something unexpected'
+  status["done"] = False
+status
+`}
+
+checkCode = { (code) => {
+  if (!code.includes("print(\"comment this line out\")") || !code.includes('print(\"also comment this line out\")')) {
+      return "hmm, looks like you deleted some lines instead of commenting them out"
+  }
+}}
+/>
+
+
+
+***I AM HERE***
 
 ```python
 import asyncio
@@ -134,7 +163,11 @@ while(True):
 ```
 
 
-<PyEditor defaultCode={`print('test')`}/>
+<PyEditor defaultCode={`import asyncio
+
+while(True):
+    await asyncio.sleep(1)
+    print('tick')`}/>
 
 
 
