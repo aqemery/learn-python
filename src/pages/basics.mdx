@@ -21,19 +21,16 @@ export const sections = [
 
 # Basics
 
-A literal constant can be one of several different data
-types: `int`, `float`, and `str`. You can print constants
-and you can sign them to variables. They should be named a
-certain way. Certain data types can be converted between
-each other. They can also be printed out in specific ways
+Welcome! I am glad you are here, and I hope you are excited to learn Python. 
+In this lesson, we will cover the basics of datatypes and variables.
 
-- Why do different data types exist?
 
 <Heading level={2} id="constants" />
 ## Literal Constants {{ anchor: false }}
 
-A literal constant can be one of several different data
-types: `int`, `float`, and `str`.
+A literal constant can be one of several different datatypes: `int`, `float`, and `str`.
+They are values that are written directly into your code. You can use them in your code
+to represent values that will not change.
 
 <CodeGroup >
 
@@ -43,6 +40,7 @@ types: `int`, `float`, and `str`.
 1245
 -500
 ```
+
 
 ```python {{ title: 'float'}}
 # A floating point number has a decimal value
@@ -64,8 +62,9 @@ types: `int`, `float`, and `str`.
 <Heading level={2} id="printing" />
 ## Printing {{ anchor: false }}
 
-The `print` function is used to display output text from your program.
-We will cover functions more in another lesson, 
+The `print` function is used to display text output from code.
+It takes a single argument as input, which can be any of the literal constants
+we just learned about.
 
 ```python
 print("This is how you print")
@@ -110,15 +109,10 @@ checkCode = { (code) => {
 
 <Heading level={2} id="comments" />
 ## Comments {{ anchor: false }}
-
-Comments are text inside your code that does not execute. 
-You have already seen some comments above. These are used for 
-documenting what your code is doing, taking notes for yourself, and 
-preventing certain sections of your code from running. In Python a comment
+Comments are text inside your code that does not run. These are used for 
+documenting your code, taking notes, and 
+preventing certain sections of your code from running. In Python, a comment
 starts with the `#` character. 
-
-You can also comment out the currently selected
-lines with the editor shortcut: <Hotkey/> + `/` 
 
 ```python
 # This is comment
@@ -128,7 +122,7 @@ print("hi") # this is also a comment
 
 ### Exercise 
 
-Comment out the lines according to their string values 
+Try using comments to prevent the print function from running in the first two lines.
 
 <PyEditor
   title='Comment exercise'
@@ -152,45 +146,103 @@ checkCode = { (code) => {
 
 
 
-***I AM HERE***
+<Heading level={2} id="help" />
+## Help {{ anchor: false }}
 
-```python
-import asyncio
+The `help` function is used to display documentation about the provided argument.
+The output can be a bit long and a little hard to read, but it can be useful
+for learning how something works. In this course, I will provide you with an
+overview of Python functionality, but you can use the `help` function to learn
+more or search online for more information.
 
-while(True):
-    await asyncio.sleep(1)
-    print('tick')
-```
+### Exercise
+Use the `help` function to learn more about the `print` function. Try it
+also with `int` and `string` as the input argument to see how it works.
 
+<PyEditor
+  title='help exercise'
+  defaultCode='help(print)'
+/>
 
-<PyEditor defaultCode={`import asyncio
-
-while(True):
-    await asyncio.sleep(1)
-    print('tick')`}/>
-
-
-
-***I AM HERE***
-
-
-
-
-
-## help
-
-how to use the help function
 
 
 
 <Heading level={2} id="variables" />
 ## Variables {{ anchor: false }}
 
-- Why should I name variables a certain way.
-- Get the variable type
-- print variables
-- naming conventions
-- FString
+Variables are used to store data that can be used later in your code.
+You can use them to store the literal constants.
+
+```python
+whole_number = 25
+number_with_decimal = 1.245
+say_hello = "Hello, World!"
+five = 5
+one_half = 0.5
+message = "This is a message"
+number_1 = 1
+```
+
+Variables are created by assigning a value to a name.
+This can be any combination of letters, numbers, and underscores with a few exceptions.
+The first character cannot be a number, and the name cannot be a reserved word.
+You can see the keywords by running `help("keywords")`. The standard naming convention is to use
+lowercase letters and underscores to separate words. For example, `my_variable_name`.
+
+Printing a variable is like printing a literal constant, except you use the variable name instead.
+You print multiple variables by separating them with commas.
+
+
+```python
+my_variable = 123
+another_variable = "hello"
+print("This is my variable:", my_variable)
+# This is my variable: 123
+print("and this is another variable:", another_variable)
+# this is another variable: hello
+```
+
+Variables can also be reassigned to a new value.
+
+```python
+my_name = 'John'
+my_name = 'Jane'
+```
+
+Variables are loosely typed, meaning python will automatically determine the type of the
+variable based on the value you assign to it. This means you could have a variable that is a
+string one moment, and an integer the next.
+
+```python
+my_variable = "One Two Three"
+my_variable = 123
+```
+
+ 
+
+### Variables exercise
+
+Create a variable with an integer value, a variable with a float value, and a variable with a string value. 
+Print all three on a single line. Additionally, reassign the variable `existing_variable` to a new value.
+
+
+<PyEditor
+  title='Variables exercise'
+  defaultCode='print(existing_variable)'
+  preRunCode = {`
+existing_variable = "This is the original value"
+print('existing_variable = "This is the original value"')
+`}
+  validation = {`
+status = {"done": True, "message": "Nice Job!"}
+if not ["123\\n", "1.234\\n", "Hello, World!\\n"] == _output:
+  status["message"] = 'hmmm, you printed something unexpected'
+  status["done"] = False
+status
+`}
+/>
+
+
 
 
 
@@ -204,9 +256,5 @@ how to use the help function
 - Variable casting
 
 
-## print formatting
 
-- Variable casting
-- Naming conventions
-- Print variables
 

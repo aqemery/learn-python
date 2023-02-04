@@ -137,7 +137,7 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
   )
 }
 
-export function PyEditor({ children, title, defaultCode, checkCode, validation}) {
+export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, validation}) {
   const [code, setCode] = useState(defaultCode)
   const [output, setOutput] = useState()
   let [selectedIndex, setSelectedIndex] = useState(0)
@@ -182,6 +182,11 @@ export function PyEditor({ children, title, defaultCode, checkCode, validation})
 
     reset()
     running = true
+
+    if (preRunCode != undefined) {
+      pyodide.runPython(preRunCode)
+    }
+    
     pyodide
       .runPythonAsync(code)
       .then(() => {
@@ -189,6 +194,11 @@ export function PyEditor({ children, title, defaultCode, checkCode, validation})
         running = false
 
         pyodide.runPython(`_output = _test_print_list`)
+
+        
+        if (validation == undefined) {
+          return
+        }
         let status = pyodide.runPython(validation)
         status = status.toJs()
         if (!status.get("done")){
@@ -294,6 +304,7 @@ export function PyEditor({ children, title, defaultCode, checkCode, validation})
                 - editor style
                 - size
                 - popout output
+                - timeout
               </div>
             </Tab.Panel>
           </Tab.Panels>
