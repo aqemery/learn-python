@@ -3,6 +3,7 @@ import Editor from '@monaco-editor/react'
 import { loadPyodide } from 'pyodide'
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
+import Confetti from 'react-confetti'
 
 let pyodide = null
 
@@ -66,7 +67,6 @@ function reset() {
     print.__doc__ = old_print_123.__doc__
   `)
 }
-
 
 main().then((result) => {
   pyodide = result
@@ -137,9 +137,19 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
   )
 }
 
-export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, validation}) {
+export function PyEditor({
+  children,
+  title,
+  defaultCode,
+  checkCode,
+  preRunCode,
+  validation,
+}) {
   const [code, setCode] = useState(defaultCode)
   const [output, setOutput] = useState()
+  const [hint, setHint] = useState()
+  const [done, setDone] = useState()
+  const [confetti, setConfetti] = useState(false)
   let [selectedIndex, setSelectedIndex] = useState(0)
   let running = false
 
@@ -149,8 +159,12 @@ export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, 
     setCode(value)
   }
 
-  function resetDefualt() {
-    setCode(defaultCode)
+  function resetDefualt(selectedIndex) {
+    if (selectedIndex == 0) {
+      setCode(defaultCode)
+    } else {
+      setOutput(undefined)
+    }
   }
 
   function captureStdout(text) {
@@ -170,6 +184,7 @@ export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, 
     if (code == undefined) {
       return
     }
+    setDone(undefined)
 
     pyodide.setStdout({
       batched: captureStdout,
@@ -186,7 +201,7 @@ export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, 
     if (preRunCode != undefined) {
       pyodide.runPython(preRunCode)
     }
-    
+
     pyodide
       .runPythonAsync(code)
       .then(() => {
@@ -195,30 +210,30 @@ export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, 
 
         pyodide.runPython(`_output = _test_print_list`)
 
-        
         if (validation == undefined) {
           return
         }
         let status = pyodide.runPython(validation)
         status = status.toJs()
-        if (!status.get("done")){
-          console.log(status.get("message"))
-          // set message 
-
-          captureStdout(status.get("message"))
-
-        }
-        else if(checkCode != undefined){
+        if (!status.get('done')) {
+          console.log(status.get('message'))
+          // set message
+          setHint(status.get('message'))
+        } else if (checkCode != undefined) {
           const message = checkCode(code)
-          if(message != undefined){
+
+          console.log('running', checkCode, code, message)
+
+          if (message != undefined) {
             console.log(message)
 
-            captureStdout(message)
-          }
-          else {
-            console.log(status.get("message"))
+            setHint(message)
+          } else {
+            console.log('checkCode passed')
+            setHint(undefined)
+            // console.log(status.get("message"))
             // success
-            captureStdout(status.get("message"))
+            setDone(status.get('message'))
           }
         }
       })
@@ -272,7 +287,7 @@ export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, 
 
   return (
     <>
-      <div className="not-prose my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10">
+      <div className="not-prose relative my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10">
         <Tab.Group {...tabGroupProps}>
           <CodeGroupHeader
             title={title}
@@ -280,36 +295,45 @@ export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, 
           ></CodeGroupHeader>
 
           <Tab.Panels>
-            <Tab.Panel>
+            <Tab.Panel className="relative">
               <div className="h-96 w-full">
                 <Editor
                   defaultLanguage="python"
                   theme="vs-dark"
                   onChange={onChange}
                   value={code}
+                  className="h-90"
                 />
               </div>
             </Tab.Panel>
-            <Tab.Panel>
-              <div className="text- block h-96 w-full resize-y overflow-auto overscroll-contain whitespace-pre-wrap border-gray-300 bg-neutral-800 p-4 font-mono shadow-sm transition-opacity duration-1000 sm:text-sm">
+            <Tab.Panel className="relative ">
+              <div className="block h-96 w-full resize-y overflow-auto overscroll-contain whitespace-pre-wrap border-gray-300 bg-neutral-800 p-4 font-mono text-zinc-300 shadow-sm transition-opacity duration-1000 sm:text-sm">
                 {output}
               </div>
+              <div className="overflow-auto whitespace-pre-wrap bg-neutral-800 pl-2 text-orange-500">
+                {hint}
+              </div>
+              <div className="overflow-auto whitespace-pre-wrap bg-neutral-800 pl-2 text-green-500">
+                {done}
+              </div>
+              {done && (
+                <Confetti
+                  className="relative top-0 left-0"
+                  numberOfPieces={1000}
+                  recycle={false}
+                />
+              )}
             </Tab.Panel>
 
             <Tab.Panel>
               <div className="h-96">
-                - Settings
-                - perserve log
-                - return
-                - editor style
-                - size
-                - popout output
-                - timeout
+                - Settings - perserve log - return - editor style - size -
+                popout output - timeout
               </div>
             </Tab.Panel>
           </Tab.Panels>
 
-          <div className="bg-[#1e1e1e] ">
+          {/* <div className="bg-[#1e1e1e] ">
             <div className="flex justify-end ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -325,9 +349,49 @@ export function PyEditor({ children, title, defaultCode, checkCode, preRunCode, 
                 />
               </svg>
             </div>
-          </div>
+          </div> */}
         </Tab.Group>
+
+        <div className="absolute bottom-2 right-6 float-right flex items-end">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="h-5 w-5 fill-gray-500 hover:fill-gray-300"
+            onClick={() => {
+              resetDefualt(tabGroupProps.selectedIndex)
+            }}
+          >
+            <path d="M2.25,12C2.25,6.615 6.615,2.25 12,2.25C17.385,2.25 21.75,6.615 21.75,12C21.75,17.385 17.385,21.75 12,21.75C6.615,21.75 2.25,17.385 2.25,12ZM14.51,8.228L13.125,9.766L18.2,10.861L16.581,5.928L15.748,6.853C14.698,6.088 13.405,5.637 12.007,5.637C8.495,5.637 5.644,8.488 5.644,12C5.644,15.512 8.495,18.363 12.007,18.363C15.372,18.363 18.13,15.747 18.356,12.439L16.481,12.048C16.455,14.54 14.457,16.555 12,16.555C9.527,16.555 7.519,14.514 7.519,12C7.519,9.486 9.527,7.445 12,7.445C12.93,7.445 13.794,7.734 14.51,8.228Z" />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="h-8 w-8 fill-green-500 hover:fill-green-200"
+            onClick={run}
+          >
+            <path
+              fillRule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
       </div>
     </>
   )
 }
+
+;<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class="h-6 w-6"
+>
+  <path
+    fill-rule="evenodd"
+    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z"
+    clip-rule="evenodd"
+  />
+</svg>

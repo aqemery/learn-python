@@ -200,12 +200,12 @@ export const navigation = [
 
     ],
   },
-  {
-    title: 'Advanced',
-    links: [
-      { title: 'Introduction', href: '/' },
-    ],
-  },
+  // {
+  //   title: 'Advanced',
+  //   links: [
+  //     { title: 'Introduction', href: '/' },
+  //   ],
+  // },
 ]
 
 export function Navigation(props) {

@@ -4,17 +4,14 @@ import { Hotkey } from '@/components/Hotkey'
 import { PyEditor } from '@/components/Editor'
 
 export const description =
-  'Learn everything there is to know about the Protocol API and integrate Protocol into your product.'
+  'Python basics: datatypes, variables, and printing'
 
 export const sections = [
   { title: 'Literal Constants', id: 'constants' },
   { title: 'Printing', id: 'printing' },
   { title: 'Comments', id: 'comments' },
-  // { title: 'Printing', id: 'printing' },
-  // { title: 'Printing', id: 'printing' },
-  // { title: 'Printing', id: 'printing' },
-  // { title: 'Constants', id: 'constants' },
   { title: 'Variables', id: 'variables' },
+  { title: 'User Input', id: 'input' },
 ]
 
 <HeroPattern />
@@ -87,9 +84,9 @@ This will be 3 separate print calls
   validation = {`
 status = {"done": False, "message": "Nice Job!"}
 if not "123\\n" in _output:
-  status["message"] = 'hmmm, did you print "123"?'
+  status["message"] = 'hmmm, did you print 123?'
 elif not "1.234\\n" in _output:
-  status["message"] = 'hmmm, did you print "1.234"?'
+  status["message"] = 'hmmm, did you print 1.234?'
 elif not "Hello, World!\\n" in _output:
   status["message"] = 'hmmm, did you print "Hello, World!"?'
 else:
@@ -137,7 +134,7 @@ if not ["print this line\\n"] == _output:
 status
 `}
 
-checkCode = { (code) => {
+checkCode = { (code) => {  
   if (!code.includes("print(\"comment this line out\")") || !code.includes('print(\"also comment this line out\")')) {
       return "hmm, looks like you deleted some lines instead of commenting them out"
   }
@@ -220,7 +217,7 @@ my_variable = 123
 
  
 
-### Variables exercise
+###  Exercise
 
 Create a variable with an integer value, a variable with a float value, and a variable with a string value. 
 Print all three on a single line. Additionally, reassign the variable `existing_variable` to a new value.
@@ -231,30 +228,71 @@ Print all three on a single line. Additionally, reassign the variable `existing_
   defaultCode='print(existing_variable)'
   preRunCode = {`
 existing_variable = "This is the original value"
-print('existing_variable = "This is the original value"')
+_pre_globals = set(globals())
 `}
   validation = {`
 status = {"done": True, "message": "Nice Job!"}
-if not ["123\\n", "1.234\\n", "Hello, World!\\n"] == _output:
-  status["message"] = 'hmmm, you printed something unexpected'
+_post_globals = set(globals())
+_new_globals = _post_globals - _pre_globals
+global_types = [type(globals()[g]) for g in _new_globals]
+
+if not int in global_types:
+  status["message"] = 'hmmm, did you create an integer variable?'
   status["done"] = False
+elif not float in global_types:
+  status["message"] = 'hmmm, did you create a float variable?'
+  status["done"] = False
+elif not str in global_types:
+  status["message"] = 'hmmm, did you create a string variable?'
+  status["done"] = False
+
+if existing_variable == "This is the original value":
+  status["message"] = 'hmmm, did you reassign the existing variable?'
+  status["done"] = False
+
 status
 `}
+checkCode = { (code) => {}}
 />
 
 
+<Heading level={2} id="input" />
+## User Input {{ anchor: false }}
 
 
+The `input` function is used to get input from the user. You can also include a prompt message.
+
+```python
+query = input("hello, how are you today? ")
+```
 
 
-## Prompt User for Input
+###  Exercise
 
-- input() - run the following code and input your name
+Using the `input` function, prompt the user for their name and store it in the variable `name`.
 
+<PyEditor
+  title='Input exercise'
+  defaultCode=''
+  preRunCode = {``}
+  validation = {`
+status = {"done": True, "message": "Nice Job!"}
+if not 'name' in globals():
+  status["message"] = "hmmm, did create a name variable?"
+  status["done"] = False
+elif not isinstance(name, str):
+  status["message"] = "hmmm, did you assign a string to the name variable?"
+  status["done"] = False
+else: 
+  status = {"done": True, "message": f"Nice Job, {name}! I hope you are enjoying the course so far."}
+status
+`}
 
-- String operations
-- Variable casting
-
-
+checkCode = { (code) => {
+  if (!code.includes("input\(")) {
+      return "hmm, did you use the input function?"
+  }
+}}
+/>
 
 
