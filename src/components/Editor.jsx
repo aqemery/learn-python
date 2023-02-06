@@ -295,14 +295,15 @@ export function PyEditor({
           ></CodeGroupHeader>
 
           <Tab.Panels>
-            <Tab.Panel className="relative">
+            <Tab.Panel className="relative bg-[#1E1E1E]">
               <div className="h-96 w-full">
                 <Editor
                   defaultLanguage="python"
                   theme="vs-dark"
                   onChange={onChange}
                   value={code}
-                  className="h-90"
+                  className="h-[96%]"
+                  
                 />
               </div>
             </Tab.Panel>
