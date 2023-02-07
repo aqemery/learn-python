@@ -108,7 +108,7 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
           >
             Output
           </Tab>
-
+{/* 
           <Tab
             className={clsx(
               'border-b py-3 transition focus:[&:not(:focus-visible)]:outline-none ',
@@ -130,7 +130,7 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
                 clipRule="evenodd"
               />
             </svg>
-          </Tab>
+          </Tab> */}
         </Tab.List>
       )}
     </div>
