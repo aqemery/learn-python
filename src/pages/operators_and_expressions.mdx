@@ -1,17 +1,289 @@
 import { HeroPattern } from '@/components/HeroPattern'
 import { Heading } from '@/components/Heading'
+import { Hotkey } from '@/components/Hotkey'
+import { PyEditor } from '@/components/Editor'
 
-export const description =
-  'Coming soon'
+export const description ='Operators and Expressions'
 
 export const sections = [
+  { title: 'Arithmetic Operators', id: 'arithmetic' },
+  { title: 'Assignment Shortcuts', id: 'assignment-shortcuts' },
+  { title: 'Order of Operations', id: 'order-of-operations' }
 ]
 
 <HeroPattern />
 
-
 # Operators and Expressions
 
-Coming soon
+In this lesson, we will learn how to use operators with variables and literal constants to build expressions. Operators behave
+differently depending on the data type of the operands. 
+
+for example the expression `1 + 1` uses the `+` operator to add two integers together.
+Here are some examples of how the `+` operator behaves for different data types:
+
+<CodeGroup >
+```python {{ title: 'int'}}
+# integer addition 
+print(1 + 1) # 2
+print(2 + 300) # 302
+```
+
+```python {{ title: 'float'}}
+# float addition 
+print(1.5 + 1.5) # 3.0
+print(2.3 + 10.4) # 12.7
+
+# float addition with integer
+print(1.5 + 1) # 2.5
+print(2 + 10.4) # 12.4
+```
+
+```python {{ title: 'str'}}
+# string concatenation
+print("hello" + "world") # helloworld
+print("hello" + " " + "world") # hello world
+```
+</CodeGroup >
+
+You can see that the `+` operator for float and integers performs addition.
+You can even mix the types, but the result will always be a float.
+However, the `+` operator performs concatenation for strings, which is the process of
+joining two strings together. 
+
+<Heading level={2} id="arithmetic" />
+## Arithmetic Operators {{ anchor: false }}
+
+When we think about operators, we normally think about the operators that we use in math:
+`+` addition, `-` subtraction, `*` multiplication,  and `/` division. These are the same operators
+that we use in Python to work with numbers.
+
+<CodeGroup >
+```python {{ title: 'Addition'}}
+print(1 + 1) # 2
+print(1.5 + 1.5) # 3.0
+print(1.5 + 1) # 2.5
+```
+
+```python {{ title: 'Subtraction'}}
+print(1 - 1) # 0
+print(1.5 - 1.1) # 0.4
+print(1.5 - 1) # 0.5
+```
+
+```python {{ title: 'Multiplication'}}
+print(2 * 2) # 4
+print(1.5 * 1.5) # 2.25
+print(1.5 * 2) # 3.0
+```
+
+```python {{ title: 'Division'}}
+# division always returns a float
+print(2 / 2) # 1.0
+print(10.0 / 2.5) # 4.0
+print(1.5 / 2) # 0.75
+```
+</CodeGroup >
+
+
+There are also a few other operators that also work with numbers, but you might not be familiar with:
+`//` integer division(floor),
+`%` modulus(remainder),
+and `**` exponentiation(power).
+
+<CodeGroup >
+```python {{ title: 'Floor'}}
+# divide the first operand by the second then round down
+print(4 // 2) # 2
+print(1.5 // 1.1) # 1.0
+print(1.5 // 1) # 1.0
+print(10 // 3) # 3
+```
+
+```python {{ title: 'Remainder'}}
+# Remainder of the division of the first operand by the second
+print(7 % 5) # 2
+print(25 % 5) # 0
+print(100 % 3) # 1
+print(1.25 % .25) # 0.0
+
+# Note: Floats are an approximate representation of a number
+# This can result in behavior that may be unexpected
+print(1.2 % 0.2) # 0.1999999999999999
+```
+
+```python {{ title: 'Power'}}
+# first operand to the power of the second operand
+print(2 ** 2) # 4
+print(2 ** 3) # 8
+print(2 ** 6) # 64
+print(1.5 ** 3) # 3.375
+```
+</CodeGroup >
+
+There is one operator that we have seen already. The `=` operator is used to assign a value to a variable.
+We can expand on our expression using assignment to store the result of an expression in a variable.
+
+```python
+one_plus_one = 1 + 1
+``` 
+and then we can use the variable in other expressions.
+
+```python
+two_plus_two = one_plus_one + one_plus_one
+print(two_plus_two) # 4
+```
+
+### Exercise
+
+Given the variable `x` and the variable `y` which have been set for you, write the following
+1. Print the value of `x` multiplied by `y`
+2. Print the value of the output of step 1 divided by `1.5`
+3. Print the value of the output of step 2 plus by `20`
+4. Print the value of the output of step 3 minus `10`
+
+<PyEditor
+  title='Arithmetic Operators Exercise'
+  defaultCode='print(x, y)
+  # step1 = ...'
+  preRunCode = {`
+import random
+x = random.randint(1, 100)
+y = random.randint(1, 100)
+_xV, _yV = x, y
+`}
+validation = {`
+x, y = _xV, _yV
+status = {"done": True, "message": "Nice Job!"}
+step1 = x * y
+step2 = step1 / 1.5
+step3 = step2 + 20
+step4 = step3 - 10
+
+if not f'{step1}\\n' in _output:
+  status = {"done": False, "message": "hmm, not seeing the correct value for step 1"}
+elif not f'{step2}\\n' in _output:
+  status = {"done": False, "message": "hmm, not seeing the correct value for step 2"}
+elif not f'{step3}\\n' in _output:
+  status = {"done": False, "message": "hmm, not seeing the correct value for step 3"}
+elif not f'{step4}\\n' in _output:
+  status = {"done": False, "message": "hmm, not seeing the correct value for step 4"}
+status
+`}
+checkCode = { (code) => {  
+}}
+
+/>
+
+
+<Heading level={2} id="assignment-shortcuts" />
+## Assignment Shortcuts {{ anchor: false }}
+
+An operation and assignment can be combined into a single step.
+For example, we can use the `+=` operator to add
+a value to a variable and assign the result to the variable.
+
+```python
+x = 1
+x += 1
+print(x) # 2
+```
+
+This is equivalent to the following code:
+
+```python
+x = 1
+x = x + 1
+print(x) # 2
+```
+
+This shortcut works for all of the math operators we have seen so far: `+`, `-`, `*`, `/`, `//`, `%`, and `**`
+by adding `=` to the end of the operator.
+
+### Exercise
+
+Given the variable `x`, use the assignment shortcuts to modify its value with the following operations:
+1. Multiply `x` by `3`
+2. Divide `x` by `2`
+3. Add `10` to `x`
+
+<PyEditor
+  title='Assignment Shortcuts Exercise'
+  defaultCode='print(x)'
+  preRunCode = {`
+import random
+x = random.randint(1, 100)
+_xV = x
+`}
+validation = {`
+status = {"done": True, "message": "Nice Job!"}
+_xV *= 3
+_xV /= 2
+_xV += 10
+
+if x != _xV:
+  status = {"done": False, "message": "hmm, not seeing the correct value for x"}
+status
+`}
+checkCode = { (code) => {
+
+}}
+
+/>
+
+
+<Heading level={2} id="order-of-operations" />
+## Order of Operations {{ anchor: false }}
+
+Operations inside an expression are evaluated in the order of their precedence.
+If there are multiple operations with the same precedence, they are evaluated from left to right.
+It's important to know this order because it can affect the result of an expression.
+The order of operations is as follows:
+
+1. Parentheses
+2. Exponents
+3. Multiplication and Division
+4. Addition and Subtraction
+5. Assignment
+
+In the expression `2 + 3 * 4`, the multiplication happens before the addition. However, 
+We can use parentheses to change the order of operations.
+
+```python
+print(2 + 3 * 4) # 14
+print((2 + 3) * 4) # 20
+print(2 * 3 ** 2) # 18
+print((2 * 3) ** 2) # 36
+```
+
+### Exercise
+
+Using parentheses change the order of operations in the following expressions to get the desired result.
+
+<PyEditor
+  title='Exercise'
+  defaultCode='print(2 + 2 * 2, "= 8")
+  print((2 + 2) ** 2, "= 6")
+  print(1 + 1 * 1 + 1, "= 4")'
+  preRunCode = {``} 
+  validation = {`
+status = {"done": True, "message": "Nice Job!"}
+
+
+if not f'8 = 8\\n' in _output or not f'6 = 6\\n' in _output or not f'4 = 4\\n' in _output:
+  status = {"done": False, "message": "hmm, not all the expressions are correct"}
+status
+`}
+checkCode = { (code) => {  
+    console.log("help")
+    if (code.includes("print(8") || code.includes("print('8") || code.includes('print("8')) {
+        return "Hmm, that's not quite what we're looking for. Try again."
+    }
+}}
+
+/>
+
+You can run `help('+')` in Python to see more details on operator precedence.
+
+
 
 

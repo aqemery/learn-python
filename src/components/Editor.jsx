@@ -47,13 +47,13 @@ async function main() {
 function reset() {
   pyodide.runPython(`
     globals().clear()
+    import asyncio
     import js
     old_input_123 = input
     def input(prompt=None):
       js.pyprompt = prompt
       return old_input_123(prompt)
     input.__doc__ = old_input_123.__doc__
-
     _test_print_list = []
     old_print_123 = print
     def print(*args, **kwargs):
@@ -108,7 +108,7 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
           >
             Output
           </Tab>
-{/* 
+          {/* 
           <Tab
             className={clsx(
               'border-b py-3 transition focus:[&:not(:focus-visible)]:outline-none ',
@@ -142,6 +142,7 @@ export function PyEditor({
   title,
   defaultCode,
   checkCode,
+  preValidation,
   preRunCode,
   validation,
 }) {
@@ -180,62 +181,65 @@ export function PyEditor({
     })
   }
 
-  function run() {
-    if (code == undefined) {
-      return
-    }
-    setDone(undefined)
+  async function callMultipleAsyncFunctions() {
+    const [result1, result2] = await Promise.all([fetchData1(), fetchData2()])
+    console.log(result1)
+    console.log(result2)
+  }
 
-    pyodide.setStdout({
-      batched: captureStdout,
+  async function fetchData1() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('This is the result of fetchData1')
+      }, 1000)
     })
+  }
 
+  async function fetchData2() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('This is the result of fetchData2')
+      }, 500)
+    })
+  }
+
+  async function validate(preCode, setOut, validate) {
+    console.log('validate', preCode, setOut, validate)
+    if (setOut) {
+      pyodide.setStdout({
+        batched: captureStdout,
+      })
+    } else {
+      pyodide.setStdout({
+        batched: null,
+      })
+    }
     const tOut = setTimeout(() => {
       interruptExecution()
       captureStdout('Error: Time limit exceeded')
+      resolve({ error: 'Time limit exceeded' })
     }, 5000)
-
     reset()
     running = true
-
-    if (preRunCode != undefined) {
-      pyodide.runPython(preRunCode)
+    if (preCode != undefined) {
+      pyodide.runPython(preCode)
     }
 
-    pyodide
+    const out = await pyodide
       .runPythonAsync(code)
       .then(() => {
+        console.log('done')
         clearTimeout(tOut)
         running = false
 
         pyodide.runPython(`_output = _test_print_list`)
 
-        if (validation == undefined) {
+        if (validate == false) {
           return
         }
         let status = pyodide.runPython(validation)
         status = status.toJs()
-        if (!status.get('done')) {
-          console.log(status.get('message'))
-          // set message
-          setHint(status.get('message'))
-        } else if (checkCode != undefined) {
-          const message = checkCode(code)
-
-          console.log('running', checkCode, code, message)
-
-          if (message != undefined) {
-            console.log(message)
-
-            setHint(message)
-          } else {
-            console.log('checkCode passed')
-            setHint(undefined)
-            // console.log(status.get("message"))
-            // success
-            setDone(status.get('message'))
-          }
-        }
+        return status
       })
       .catch((err) => {
         clearTimeout(tOut)
@@ -250,8 +254,77 @@ export function PyEditor({
         lines.splice(1, to - 1)
         var newtext = lines.join('\n')
         captureStdout(newtext)
+        return { error: newtext }
       })
+    return out
+  }
+
+  async function run() {
+    if (code == undefined) {
+      return
+    }
+    setDone(undefined)
+
+    let doVal = validation != undefined
+
+    if (preValidation != undefined) {
+      doVal = false
+    }
+    running = true
     setSelectedIndex(1)
+    let status = await validate(preRunCode, true, doVal)
+
+    if (status != undefined && status.error != undefined) {
+      setHint('Encountered an error while running your code.')
+      return
+    }
+
+
+    console.log(preValidation)
+    for (let c in preValidation) {
+      console.log('running validate', preValidation[c])
+      status = await validate(preValidation[c], false, true) 
+      console.log('status: ', status)
+
+      if (!status.get('done')) {
+        break
+      }
+    }
+    running = false
+
+    if (validation == undefined) {
+      return
+    }
+
+    if (!status.get('done')) {
+      console.log(status.get('message'))
+      // set message
+      setHint(status.get('message'))
+    } else if (checkCode != undefined) {
+      const message = checkCode(code)
+
+      console.log('running', checkCode, code, message)
+
+      if (message != undefined) {
+        console.log(message)
+
+        setHint(message)
+      } else {
+        console.log('checkCode passed')
+        setHint(undefined)
+        setDone(status.get('message'))
+      }
+    } else {
+      setHint(undefined)
+      setDone(status.get('message'))
+    }
+
+    // if x > 0:
+    //     print('x is positive')
+    // elif x < 0:
+    //     print('x is negative')
+    // else:
+    //     print('x is 0')
   }
 
   function clearCode() {
@@ -303,7 +376,6 @@ export function PyEditor({
                   onChange={onChange}
                   value={code}
                   className="h-[96%]"
-                  
                 />
               </div>
             </Tab.Panel>
