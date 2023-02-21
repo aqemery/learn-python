@@ -1,15 +1,331 @@
 import { HeroPattern } from '@/components/HeroPattern'
 import { Heading } from '@/components/Heading'
+import { PyEditor } from '@/components/Editor'
 
 export const description =
-  'Coming soon'
+  'Functions'
 
 export const sections = [
-  // { title: 'Variable Scope', id: 'variable-scope' },
+  { title: 'Creating Functions', id: 'def' },
+  { title: 'Arguments', id: 'arguments' },
+  { title: 'Return Values', id: 'return'},
+  { title: 'Scope', id: 'scope'}
 ]
 
 <HeroPattern />
 
 # Functions
 
-Coming soon
+Functions are code blocks that can be called from other parts of your program.
+You might want to use a function if you are going to use the same code multiple times
+or if you want to break down a large program into smaller parts.
+
+We have already seen some functions in the previous chapters, like the built-in `print` function.
+
+```python
+print("Hello World")
+```
+
+
+<Heading level={2} id="def" />
+## Creating Functions {{ anchor: false }}
+
+The `def` keyword is used to specify a function followed by the name.
+Any arguments that the function takes are defined inside parentheses.
+
+When the function is called, the code block is executed much like an `if` statement. 
+
+```python
+def hello():
+    print("Hello World")
+
+hello() # Output: Hello World
+```
+
+<Heading level={2} id="arguments" />
+## Arguments{{ anchor: false }}
+
+Arguments can be passed to a function by specifying them in parentheses.
+The arguments are variables that can be used inside the function. 
+
+
+### Positional Arguments
+
+Positional arguments are arguments that are passed to the function in
+the same order as they are defined. Each argument is separated by a comma.
+You can have any number of positional arguments.
+
+```python
+def hello(first, last):
+    print("Hello", first, last)
+
+hello("john", "doe") # Output: Hello john doe
+```
+
+### Exercise
+
+Write a function named `add` that takes two arguments and prints their sum.
+
+
+<PyEditor
+  title='Function exercise'
+  defaultCode={``}
+  validation = {`
+    import random
+    x = random.randint(0, 30)
+    y = random.randint(0, 30)
+    status = {"done": True, "message": "Nice job!"}
+    
+
+    if not "add" in globals():
+        status['done'] = False
+        status['message'] = "Hmm, did you define a function named add?"
+    else:
+      add(x, y)
+      if not str(x + y) in ''.join(_output):
+              status['done'] = False
+              status['message'] = "Hmm, try again."
+    status
+`}
+/>
+
+
+### Keyword Arguments
+
+Keyword arguments are arguments that are passed to the function with a keyword. You can
+even specify positional arguments using keywords.
+
+```python
+def hello(first, last):
+    print("Hello", first, last)
+
+hello(last="doe", first="john") # Output: Hello john doe
+```
+
+However, keywords are mostly used for optional arguments that have default values. 
+You can also use keywords to specify arguments in a different order than they are defined.
+
+```python
+def hello(first, last="doe"):
+    print("Hello", first, last)
+
+hello("john") # Output: Hello john doe
+hello("john", "smith") # Output: Hello john smith
+hello(last="deer", first="john") # Output: Hello john deer
+hello(first="jim") # Output: Hello jim doe
+```
+
+If you want to only allow positional or keyword arguments you can use the `/` and `*` symbols
+to specify where the positional and keyword arguments start.
+
+```python
+def test(position_only, /, position_or_keyword, *, keyword_only): 
+    # code block
+```
+
+
+
+The `print` function is also a good example of a function that takes arguments.
+
+```python
+print("Hello", "World", sep="-", end="!\n") # Output: Hello-World!
+```
+
+The first two arguments are positional arguments and the last two are keyword arguments.
+The `print` function can take any number of positional arguments, but there are only a few keyword arguments.
+Here is what the `help` function says about the `print` function.
+
+```python
+print(*args, sep=' ', end='\n', file=None, flush=False)
+    Prints the values to a stream, or to sys.stdout by default.
+    
+    sep
+      string inserted between values, default a space.
+    end
+      string appended after the last value, default a newline.
+    file
+      a file-like object (stream); defaults to the current sys.stdout.
+    flush
+      whether to forcibly flush the stream.
+```
+
+Keyword arguments can have default values so you don't
+have to specify them every time you call the function. For example, the `print` function
+has a default value for the `end` keyword argument which will add a newline character
+at the end, but you can override it by passing a different value.
+
+
+### Exercise
+
+Modify the code below to print 0-9 on a single line.
+
+<PyEditor
+  title='Keyword exercise'
+  defaultCode={`for i in range(10):
+    print(i)
+print()`}
+  preRunCode = {`
+    import random
+    x = random.randint(0, 30)
+    y = random.randint(0, 30)
+    z = random.randint(0, 30)
+    `}
+  validation = {`
+    status = {"done": True, "message": "Nice job!"}
+
+    if not '0123456789\\n' in ''.join(_output):
+            status['done'] = False
+            status['message'] = "Hmm, try again."
+    status
+`}
+/>
+
+
+<Heading level={2} id="return" />
+## Return Values {{ anchor: false }}
+
+Functions can produce a value by using the `return` keyword. This is useful
+for creating a reusable expression that can be used in other parts of your program.
+
+  
+```python
+def isPositive(x):
+    return x > 0
+
+print(isPositive(5)) # Output: True
+print(isPositive(-5)) # Output: False
+
+if isPositive(5):
+    print("Positive")
+else:
+    print("Negative")
+```
+
+### Exercise
+
+Write a function named `add` that takes two arguments and returns their sum.
+
+<PyEditor
+  title='Function exercise'
+  defaultCode={``}
+  validation = {`
+    import random
+    x = random.randint(0, 30)
+    y = random.randint(0, 30)
+    status = {"done": True, "message": "Nice job!"}
+    
+
+    if not "add" in globals():
+        status['done'] = False
+        status['message'] = "Hmm, did you define a function named add?"
+    else:
+      add(x, y) == x + y
+      if add(x, y) != x + y:
+              status['done'] = False
+              status['message'] = "Hmm, try again."
+    status
+`}
+/>
+
+<Heading level={2} id="scope" />
+## Scope {{ anchor: false }}
+
+Scope refers to where a variable can be accessed. 
+There are two types of scope: global and local.
+
+
+### Global scope
+
+A variable created outside of a function has a global scope
+and can be accessed inside or outside of a function.
+
+```python
+def print_x():
+    print(x)
+
+x = 10
+print_x() # Output: 10
+x = 20
+print_x() # Output: 20
+```
+
+### Local scope
+
+A variable created inside a function is only available inside that function.
+This is called the scope of the variable. I variables with the same name can exist
+inside and outside of a function.
+
+```python
+x = 5
+def print_x():
+    x = 10
+    print(x)
+
+print_x() # Output: 10
+print(x) # Output: 5
+```
+
+### Global keyword
+
+If you want to modify a global variable inside a function, you can use the `global` keyword.
+
+```python
+x = 5
+def print_x():
+    global x
+    x += 1
+    print(x)
+
+print_x() # Output: 6
+print(x) # Output: 6
+```
+
+### Exercise
+
+Given a number `x`, do the following:
+1. Create a function called `add_one` that increases the value of `x` by 1.
+2. Create a function called `add_two` that takes `x` as an argument and
+returns the value of `x` plus 2.
+
+<PyEditor
+  title='Scope exercise'
+  defaultCode={``}
+  preRunCode = {`
+    import random
+    x = random.randint(0, 30)`}
+  validation = {`
+    import random
+    x = random.randint(0, 30)
+    _x = x
+    status = {"done": True, "message": "Nice job!"}
+
+    if "add_one" in globals() and "add_two" in globals():
+  
+      try:
+        add_one()
+        add_one()
+        add_one()
+        x += add_two(x)
+        x += add_two(x)
+
+        _x += 3
+        _x += _x + 2
+        _x += _x + 2
+
+
+        if x != _x:
+                status['done'] = False
+                status['message'] = "Hmm, try again."
+      except UnboundLocalError:
+        status['done'] = False
+        status['message'] = "Hmm, did you use the global keyword?"
+      except TypeError:
+        status['done'] = False
+        status['message'] = "Hmm, do you have the correct number arguments and return for add_two?"
+        
+    else:
+      status['done'] = False
+      status['message'] = "Hmm, did you define the functions named add_one and add_two?"
+    status
+`}
+/>
