@@ -1,0 +1,116 @@
+import { HeroPattern } from '@/components/HeroPattern'
+import { Heading } from '@/components/Heading'
+import { Hotkey } from '@/components/Hotkey'
+import { PyEditor } from '@/components/Editor'
+
+export const description =
+  'Python basics: data types, variables, and printing'
+
+export const sections = [
+//   { title: 'Literal Constants', id: 'constants' },
+//   { title: 'Printing', id: 'printing' },
+//   { title: 'Comments', id: 'comments' },
+//   { title: 'Help', id: 'help' },
+//   { title: 'Variables', id: 'variables' },
+//   { title: 'User Input', id: 'input' },
+]
+
+<HeroPattern />
+
+# Basics
+
+Welcome! I am glad you are here, and I hope you are excited to learn Python. 
+In this lesson, we will cover the basics of data types and variables.
+
+
+
+
+## Creating Files {{ anchor: false }}
+
+The `os` module provides functions for reading and writing files.
+To read or write to a file, you must first open it.
+The `open` function is used to open a file.
+
+```python
+file = open('file.txt', 'w')
+```
+
+The `open` function takes two arguments, the name of the file and the mode.
+Several modes can be used when opening a file, such as: `r` for reading, `w` for writing, and `a` for appending.
+We can then use the `write` method to write to the file.
+It is also important to close the file when you are
+done using it, or your changes may not be saved.
+
+```python
+file = open('file.txt', 'w')
+file.write('hello world')
+file.close()
+```
+
+It is recommended that you use the `with open` syntax when
+opening a file as this will close the file for you.
+
+```python
+with open('file.txt', 'w') as file:
+    file.write('hello world')
+```
+
+Reading from a file is similar to writing a file.
+The `open` function is used to open a file.
+
+```python
+with open('file.txt', 'w') as file:
+    file.read()
+```
+
+You can read and write to a file at the same time using the `r+` mode.
+
+
+### Exercise
+
+Use the `os` module to:
+1. Create a file named `file.txt` and write `hello world!` to it.
+2. Read the contents of the `note.txt` file and print it.
+
+<PyEditor
+  title='file exercise'
+  defaultCode={``}
+  preRunCode={`
+    import os
+    with open('note.txt', 'w') as file:
+        file.write('Hello there! I hope you are having a great day!')
+  `}
+  preValidation = {[
+    ``,
+    ``,
+    ``,
+    ``,
+    ``,
+    ``,
+    ``
+  ]}
+  validation = {`
+    status = {"done": True, "message": "Nice job!"}
+
+    import os
+
+    if not os.path.exists('file.txt'):
+        status['done'] = False
+        status['message'] = "hmm, did you create a file named 'file.txt'?"
+
+    if not os.path.exists('note.txt'):
+        status['done'] = False
+        status['message'] = "hmm, did you create a file named 'note.txt'?"
+
+    joined_out = ' '.join(_output)
+    if not f'hello world!' in joined_out:
+        status['done'] = False
+        status['message'] = "hmm, did you write 'hello world!' to the file?"
+
+    if not f'hello world!' in joined_out:
+        status['done'] = False
+        status['message'] = "hmm, did you read the contents of the file?"
+
+    status
+`}
+/>

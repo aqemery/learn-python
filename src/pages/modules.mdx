@@ -1,14 +1,206 @@
 import { HeroPattern } from '@/components/HeroPattern'
 import { Heading } from '@/components/Heading'
+import { PyEditor } from '@/components/Editor'
 
-export const description =
-  'Coming soon'
+export const description = 'Modules are collections of python code that can be imported for use in your code.'
 
 export const sections = [
+  { title: 'Importing Modules', id: 'import' },
+  { title: 'Random', id: 'random' },
+  { title: 'Math', id: 'math' },
+  { title: 'OS', id: 'os' },
 ]
 
 <HeroPattern />
 
 # Modules
 
-Coming soon
+A module is a collection of python code that can be imported for use in your code. When
+a module is imported, the code in the module is executed, which makes it possible to use the
+functions and variables defined in the module. Python includes several modules in
+its standard library and you can also create and install more.
+In this section, we will sample a few of the standard library modules
+so you can get a feel for how modules work.
+
+
+<Heading level={2} id="import" />
+## Importing modules{{ anchor: false }}
+
+We will be using the `sys` module in this section as an example.
+The `sys` module provides access to some variables
+such as the python version and the current platform the code is running on.
+
+To use a module, you must first import it.
+You can import a module using the `import` keyword. After importing a module, you can access its functions and variables by using the dot operator.
+For example, to print the current python version, you can do the following:
+
+```python
+import sys
+print(sys.version)
+```
+
+If you only want to use a specific function or variable from a module, you can import it directly using
+the `from` keyword.
+
+```python
+from sys import version
+```
+
+And if you want to import multiple functions or variables from a module, you can do the following:
+
+```python
+from sys import version, platform
+```
+
+You can even change the name of what you are importing.
+
+```python
+import sys as system
+from sys import version as python_version
+from sys import version, platform as sys_version, sys_platform
+```
+
+### Exercise
+
+Use the `sys` module to print the current python version and platform.
+
+<PyEditor
+  title='Import exercise'
+  defaultCode={``}
+  validation = {`
+    status = {"done": True, "message": "Nice job!"}
+
+    import sys
+
+    joined_out = ' '.join(_output)
+    if not f'{sys.version}' in joined_out:
+        status['done'] = False
+        status['message'] = "hmm, did you print the version?"
+
+    if not f'{sys.platform}' in joined_out:
+        status['done'] = False
+        status['message'] = "hmm, did you print the platform?"
+
+    status
+`}
+/>
+
+<Heading level={2} id="random" />
+## The `random` module {{ anchor: false }}
+
+The `random` module provides functions for generating
+random numbers amount other things. The `randint`
+function imported from a module. The `randint` function
+takes two integers as arguments and will return a random integer
+between the two numbers. For example, the following code will print
+a random number between 1 and 100, including 1 and 100.
+
+```python
+from random import randint
+print(randint(1, 100))
+```
+
+### Exercise
+
+Using `randint` create a random number `x` from 1 to 4. Then, print the number as a word.
+For example, if the number is 1, print `one`.
+
+<PyEditor
+  title='Random exercise'
+  defaultCode={``}
+  preRunCode={`
+    x = None
+  `}
+  preValidation = {[
+    ``,
+    ``,
+    ``,
+    ``,
+    ``,
+    ``,
+    ``
+  ]}
+  validation = {`
+    status = {"done": True, "message": "Nice job!"}
+
+    if x is None:
+        status['done'] = False
+        status['message'] = "hmm, did you create a random number named 'x'?"
+    else:
+      _names =['one', 'two', 'three', 'four']
+      if not f'{_names[x-1]}\\n' in _output:
+          status['done'] = False
+          status['message'] = f"hmm, did you print the number as a word?"
+
+    status
+`}
+/>
+
+
+<Heading level={2} id="math" />
+## The `math` module{{ anchor: false }}
+
+The `math` module is another useful module to know.
+It provides access to many mathematical functions and constants
+that you would find on a calculator. Such as `math.pi`.
+
+```python
+import math
+print(math.pi)
+```
+
+### Exercise
+
+Using the `math` modules `sqrt` function, print the square root of `90`.
+
+<PyEditor
+  title='Math exercise'
+  defaultCode={``}
+  validation = {`
+    status = {"done": True, "message": "Nice job!"}
+
+    import math
+
+    joined_out = ' '.join(_output)
+    if not f'{math.sqrt(90)}' in joined_out:
+        status['done'] = False
+        status['message'] = "hmm, did you print the square root of 90?"
+
+    status
+`}
+/>
+
+
+<Heading level={2} id="os" />
+## The `os` module {{ anchor: false }}
+
+The `os` module provides access to functions
+that allow you to interact with the operating system,
+like working with files and directories.
+Another feature is the ability to read environment variables
+set by the operating system.
+
+```python
+import os
+print(os.getenv("PATH"))
+```
+
+### Exercise
+
+Using the `os` module, print the environment variables of the `HOME` directory
+
+<PyEditor
+  title='OS exercise'
+  defaultCode={``}
+  validation = {`
+    status = {"done": True, "message": "Nice job!"}
+
+    import os
+    joined_out = ' '.join(_output)
+    if not os.getenv("HOME") in joined_out:
+        status['done'] = False
+        status['message'] = "hmm, did you print the HOME directory?"
+
+    status
+`}
+/>
