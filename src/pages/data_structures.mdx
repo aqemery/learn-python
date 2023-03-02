@@ -1,14 +1,471 @@
 import { HeroPattern } from '@/components/HeroPattern'
 import { Heading } from '@/components/Heading'
+import { PyEditor } from '@/components/Editor'
 
-export const description =
-  'Coming soon'
+export const description = 'Data Structures in python'
 
 export const sections = [
-
+  { title: 'List', id: 'list' },
+  { title: 'Tuple', id: 'tuple' },
+  { title: 'Sequence', id: 'sequence' },
+  { title: 'Set', id: 'set' },
+  { title: 'Dictionary', id: 'dictionary' }
 ]
 
 <HeroPattern />
 
+
+
 # Data Structures
-Coming soon
+
+A data structure is a way to store data. Different data structures are used for different tasks.
+In this lesson, we will learn the core data structures in Python.
+
+<Heading level={2} id="list" />
+## List {{ anchor: false }}
+
+A `list` is a data structure that stores ordered data. It also allows you to add and remove data, as well as sort the data.
+Here is an example of a list containing integers:
+
+```python
+numbers = [1, 2, 3]
+```
+
+Here are some basic operations you can do with a `list`:
+
+```python
+numbers = [3, 5, 2]
+numbers.append(4) # [3, 5, 2, 4]
+numbers.remove(2) # [3, 5, 4]
+numbers.sort() # [3, 4, 5]
+```
+
+### Exercise
+
+Use list methods to:
+1. Create a list named `numbers` with the numbers `4`, `5`, and `6`
+2. Given a list named `hidden`, add `5`, remove `2`, and then sort.
+
+<PyEditor
+  title='List Methods Exercise'
+  defaultCode=''
+  preRunCode = {`
+import random
+hidden = [random.randint(1, 100) for _ in range(3)]
+hidden.append(2)
+_hidden = hidden.copy()
+`}
+validation = {`
+status = {"done": True, "message": "Nice Job!"}
+_hidden.append(5)
+_hidden.remove(2)
+_hidden.sort() 
+
+if not numbers == [4,5,6]:
+  status = {"done": False, "message": "hmm, not seeing the correct value for numbers"}
+
+elif not hidden == _hidden:
+  status = {"done": False, "message": "hmm, not seeing the correct value for hidden"}
+status
+`}
+checkCode = { (code) => {  
+}}
+
+/>
+
+
+
+<Heading level={2} id="tuple" />
+## Tuple {{ anchor: false }}
+
+A `list` is a data structure that stores ordered data. It also allows you to add and remove data, as well as sort the data.
+Here is an example of a list containing integers:
+
+
+A `tuple` is similar to a `list`, but it is immutable or unchangeable. Here is an example of a tuple
+containing integers:
+
+```python
+numbers = (1, 2, 3)
+```
+
+This may look familiar to you because function arguments are passed as tuples. Also, if you `return`
+multiple values from a function, they are returned as a tuple.
+
+
+```python
+def add_and_subtract(a, b):
+    return a + b, a - b
+
+result = add_and_subtract(1, 2)
+print(result) # (3, -1)
+```
+
+If you need to modify a tuple, you can convert it to a list, then modify it.
+
+```python
+numbers = (1, 2, 3)
+numbers = list(numbers)
+numbers.append(4)
+print(numbers) # [1, 2, 3, 4]
+```
+
+
+<Heading level={2} id="sequence" />
+## Sequence {{ anchor: false }}
+
+`list` and `tuple` are both sequences, even strings are sequences.
+A sequence is an ordered collection of items that can be accessed by index.
+There are several operations you can do with a sequence.
+
+### Indexing
+
+A data element in a sequence can be accessed by its index. The first element in a sequence has an index of `0`.
+
+```python
+letters = "hello"
+numbers = [1, 2, 3]
+other_numbers = (4, 5, 6)
+
+print(letters[0]) # h
+print(numbers[0]) # 1
+print(other_numbers[0]) # 4
+
+print(letters[1]) # e
+print(numbers[1]) # 2
+print(other_numbers[1]) # 5
+```
+
+Python also has support for negative indexing, which allow you to access elements from the end of the sequence.
+
+```python
+letters = "hello"
+numbers = [1, 2, 3]
+other_numbers = (4, 5, 6)
+
+print(letters[-1]) # o
+print(numbers[-1]) # 3
+print(other_numbers[-1]) # 6
+
+print(letters[-2]) # l
+print(numbers[-2]) # 2
+print(other_numbers[-2]) # 5
+```
+
+### Slicing
+
+You can also use indexing to create a new sequence from a subset of the original sequence. This is called slicing.
+
+```python
+letters = "hello"
+numbers = [1, 2, 3]
+other_numbers = (4, 5, 6)
+
+print(letters[1:3]) # el
+print(numbers[1:3]) # [2, 3]
+print(other_numbers[1:3]) # (5, 6)
+```
+
+You don't have to specify the start or end of the slice. If you don't specify the start, it will start at the beginning of the sequence.
+If you don't specify the end, it will go to the end of the sequence.
+
+```python
+numbers = [1, 2, 3]
+print(numbers[:2]) # [1, 2]
+print(numbers[1:]) # [2, 3]
+```
+
+### Iterating
+
+Iterating is the process of going through each element in a sequence. You can do this with a `for` `in` loop.
+
+```python
+letters = "hello"
+for letter in letters:
+  if letter == "l":
+    print("found l")
+```
+
+In the example above, the variable `letter` is assigned for each iteration of the loop and can be used to access the current element in the sequence.
+We can then run specific code for each element in the sequence.
+
+### Concatenation
+
+You can also combine two sequences using the `+` operator. We can see this with strings already, but it also works with lists and tuples.
+
+```python
+letters = "hello"
+numbers = [1, 2, 3]
+other_numbers = (4, 5, 6)
+
+print(letters + ' there!') # hello there!
+print(numbers + [4,5]) # [1, 2, 3, 4, 5]
+print(other_numbers + (1, 2)) # (4, 5, 6, 1, 2)
+```
+
+Concatenation only works with sequences of the same type. You cannot combine a `list` and a `tuple`.
+
+### The `in` Operator
+
+You can also check if an element is in a sequence using the `in` operator.
+
+```python
+numbers = [1, 2, 3]
+print(1 in numbers) # True
+print(4 in numbers) # False
+```
+
+### The `len` Function
+
+You can also get the length of a sequence using the `len` function.
+
+```python
+numbers = [1, 2, 3]
+print(len(numbers)) # 3
+```
+
+### Sequence Unpacking and Assignment
+
+You can also assign multiple variables at once using sequence unpacking.
+
+```python
+numbers = [1, 2, 3]
+a, b, c = numbers
+print(a) # 1
+print(b) # 2
+print(c) # 3
+```
+
+You don't have to assign all the values in the sequence. You can use the `_` character to ignore values and the
+`*` character to capture the rest of the values.
+
+```python
+numbers = [1, 2, 3, 4, 5]
+a, _, *b = numbers
+print(a) # 1
+print(b) # [3, 4, 5]
+```
+
+### Exercise
+
+Given a sequence `numbers` print the [median](https://en.wikipedia.org/wiki/Median) of the sequence. Note: your solution should work if the sequence is a `list` or `tuple`.
+
+
+<PyEditor
+  title='Sequence Exercise'
+  defaultCode='print(numbers)'
+  preRunCode = {`
+    import random
+    numbers = [random.randint(1, 100) for _ in range(random.randint(7, 14))]
+    _numbers = numbers.copy()
+    if random.randint(0, 1) == 0:
+      numbers = tuple(numbers)
+`}
+
+preValidation = {[
+    `import random; numbers = [random.randint(1, 100) for _ in range(7)]; _numbers = list(numbers)`,
+    `import random; numbers = tuple(random.randint(1, 100) for _ in range(8)); _numbers = list(numbers)`
+  ]}
+validation = {`
+  status = {"done": True, "message": "Nice Job!"}
+  import statistics
+  if not f"{statistics.median(_numbers)}\\n" in _output:
+    if len(_numbers) % 2 == 0:
+      status = {"done": False, "message": "hmm, that doesn't look right for even length sequences"}
+    else:
+      status = {"done": False, "message": "hmm, that doesn't look right"}
+  status
+`}
+/>
+
+<Heading level={2} id="set" />
+## Set {{ anchor: false }}
+
+A `set` is a data structure that stores unordered data.
+It also allows you to add and remove data, as well as check if data is in the set.
+You can create a set using the `set` function or by using curly braces. However, you will need
+to use the `set` function if you want to create an empty set or if you want to create a set from a sequence.
+
+```python
+numbers = set([1, 2, 3])
+print(numbers) # {1, 2, 3}
+
+letters = {"a", "b", "c"}
+print(letters) # {"a", "b", "c"}
+```
+
+A `set` can only contain unique values. If you try to add a value that is already in the set, it will be ignored.
+
+```python
+numbers = set([1, 2, 3])
+numbers.add(1)
+print(numbers) # {1, 2, 3}
+```
+
+Here are some basic operations you can do with a `set`:
+
+```python
+numbers = {1, 2, 3}
+numbers.add(4) # {1, 2, 3, 4}
+numbers.remove(2) # {1, 3, 4} error if 2 is not in the set
+numbers.discard(4) # {1, 3} does not error if 4 is not in the set
+numbers.clear() # {}
+```
+
+Sets are unordered, so you cannot access a specific value in a set.
+However, several of the same operations that work for sequences also work for sets.
+
+```python
+numbers = {1, 2, 3}
+print(len(numbers)) # get the length 
+print(1 in numbers) # check if a value is in the set
+for number in numbers: # iterate over the set
+  print(number)
+```
+
+Sets also have some useful operations that can be used on multiple sets.
+
+```python
+numbers = {1, 2, 3}
+other_numbers = {3, 4, 5}
+print(numbers | other_numbers) # union {1, 2, 3, 4, 5}
+print(numbers & other_numbers) # intersection {3}
+print(numbers - other_numbers) # difference {1, 2}
+print(numbers ^ other_numbers) # symmetric difference {1, 2, 4, 5}
+```
+
+### Exercise
+
+Given a list `to_remove` create a new set called `numbers` that contains the all
+numbers 1 through 10 that are not in `to_remove`.
+
+<PyEditor
+  title='Set Exercise'
+  defaultCode='print(to_remove)
+  numbers = set()'
+  preRunCode = {`
+    import random
+    to_remove = [random.randint(1, 10) for _ in range(3)]`
+  }
+  preValidation = {[
+    `import random; to_remove = [random.randint(1, 10) for _ in range(3)]; _to_remove = list(to_remove)`,
+    `import random; to_remove = [random.randint(1, 10) for _ in range(3)]; _to_remove = list(to_remove)`,
+    `import random; to_remove = [random.randint(1, 10) for _ in range(3)]; _to_remove = list(to_remove)`,
+  ]}
+  validation = {`
+    status = {"done": True, "message": "Nice Job!"}
+    try:
+      if not numbers == {1, 2, 3, 4, 5, 6, 7, 8, 9, 10} - set(_to_remove):
+        status = {"done": False, "message": "hmm, that doesn't look right"}
+    except NameError:
+      status = {"done": False, "message": "hmm, you didn't create a variable called numbers"}
+    status
+  `}
+/>
+
+
+
+
+
+
+
+
+<Heading level={2} id="dictionary" />
+## Dictionary {{ anchor: false }}
+
+A `dictionary` is a data structure that stores data in key-value pairs. You can create a dictionary
+using the `dict` function or by using curly braces.
+
+```python
+letters = {1: "a", 2: "b", 3: "c"}
+print(letters) # {1: "a", 2: "b", 3: "c"}
+
+numbers = dict([(1, "one"), (2, "two"), (3, "three")])
+print(numbers) # {1: "one", 2: "two", 3: "three"}
+
+empty = {} # empty dictionary not empty set
+```
+
+A `dictionary` can only contain unique keys, this is similar to a `set`. However,
+the values in a dictionary can be repeated.
+
+```python
+numbers = {1: "a", 2: "b", 3: "b" 1: "c"}
+print(numbers) # {1: "c", 2: "b", 3: "b"}
+```
+
+You can access the value of a key in a dictionary using square brackets. This is similar to an index in a list,
+but you use the key instead of the index.
+
+```python
+numbers = {1: "one", 2: "two", 3: "three"}
+print(numbers[1]) # "one"
+```
+
+Similarly, you can use square brackets to change or add a value by key.
+
+```python
+numbers = {1: "one", 2: "two", 3: "three"}
+numbers[1] = "ONE"
+numbers[4] = "four"
+print(numbers) # {1: "ONE", 2: "two", 3: "three", 4: "four"}
+```
+
+Using the `in` operator will check if a key is in the dictionary.
+
+```python
+numbers = {1: "one", 2: "two", 3: "three"}
+print(1 in numbers) # True
+print(4 in numbers) # False
+```
+
+If you want to check if a value is in the dictionary, you can use the `values` method.
+
+```python
+numbers = {1: "one", 2: "two", 3: "three"}
+print("one" in numbers.values()) # True
+print("four" in numbers.values()) # False
+```
+
+The `len` works similarly to a list, but it will return the number of keys in the dictionary.
+
+You can use the `keys` method to iterate over the keys in a dictionary or
+the `values` method to iterate over the values. However, the `items` method will give you both the key and value.
+
+```python
+numbers = {1: "one", 2: "two", 3: "three"}
+for key, value in numbers.items():
+  print(key, value)
+# 1 one
+# 2 two
+# 3 three
+```
+
+### Exercise
+
+Given a list `numbers` create a dictionary called `counts` that contains
+the number of times each number appears in the list.
+
+<PyEditor
+  title='Dictionary Exercise'
+  defaultCode='print(numbers)
+  counts = {}'
+  preRunCode = {`
+    import random
+    numbers = [random.randint(1, 10) for _ in range(100)]`
+  }
+  preValidation = {[
+    `import random; numbers = [random.randint(1, 10) for _ in range(100)]; _numbers = list(numbers)`,
+    `import random; numbers = [random.randint(1, 10) for _ in range(100)]; _numbers = list(numbers)`,
+    `import random; numbers = [random.randint(1, 10) for _ in range(100)]; _numbers = list(numbers)`,
+  ]}
+  validation = {`
+    status = {"done": True, "message": "Nice Job!"}
+    try:
+      if not counts == {number: _numbers.count(number) for number in _numbers}:
+        status = {"done": False, "message": "hmm, that doesn't look right"}
+    except NameError:
+      status = {"done": False, "message": "hmm, you didn't create a variable called counts"}
+    status
+  `}
+/>
