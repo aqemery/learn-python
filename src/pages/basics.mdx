@@ -10,8 +10,8 @@ export const sections = [
   { title: 'Literal Constants', id: 'constants' },
   { title: 'Printing', id: 'printing' },
   { title: 'Comments', id: 'comments' },
-  { title: 'Help', id: 'help' },
   { title: 'Variables', id: 'variables' },
+  { title: 'Print Formatting', id: 'print_formatting' },
   { title: 'User Input', id: 'input' },
 ]
 
@@ -26,9 +26,8 @@ In this lesson, we will cover the basics of data types and variables.
 <Heading level={2} id="constants" />
 ## Literal Constants {{ anchor: false }}
 
-A literal constant can be one of several different data types: `int`, `float`, and `str`.
-They are values that are written directly into your code. You can use them in your code
-to represent values that will not change.
+literal constants are values written directly into your code.
+They can be one of several different data types: `int`, `float`, and `str`.
 
 <CodeGroup >
 
@@ -69,18 +68,27 @@ print("This is how you print")
 print("I can print more with another print call")
 ```
 
+<Heading level={2} id="comments" />
+## Comments {{ anchor: false }}
+Comments are text inside your code that does not run. These are used for 
+documenting your code, taking notes, and 
+preventing certain sections of your code from running. In Python, a comment
+starts with the `#` character. 
+
+```python
+# This is a comment
+print("hi") # this is also a comment
+```
+
+
 ### Exercise
 Use the print function to print the following values: `123`, `1.234`, `Hello, World!`.
-You can do this with 3 separate print calls, each on its own line.
-{/* <Note>
-This will be 3 separate print calls
-</Note> */}
-
-
+You can do this with 3 separate print calls, each on a new line.
 
 <PyEditor
   title='Print exercise'
-  defaultCode="# This is your first editor type your code below
+  defaultCode="# This is your first editor
+    # type your code below
     # press the play button to run your code"
   validation = {`
 status = {"done": False, "message": "Nice Job!"}
@@ -105,17 +113,6 @@ checkCode = { (code) => {
 }}
 />
 
-<Heading level={2} id="comments" />
-## Comments {{ anchor: false }}
-Comments are text inside your code that does not run. These are used for 
-documenting your code, taking notes, and 
-preventing certain sections of your code from running. In Python, a comment
-starts with the `#` character. 
-
-```python
-# This is a comment
-print("hi") # this is also a comment
-```
 
 
 ### Exercise 
@@ -143,33 +140,10 @@ checkCode = { (code) => {
 />
 
 
-
-<Heading level={2} id="help" />
-## Help {{ anchor: false }}
-
-The `help` function is used to display documentation about the provided argument.
-The output can be a bit long and a little hard to read, but it can be useful
-for learning how something works. In this course, I will provide you with an
-overview of Python functionality, but you can use the `help` function to learn
-more or search online for more information.
-
-### Exercise
-Use the `help` function to learn more about the `print` function. Try it
-also with `int` and `string` as the input argument to see how it works.
-
-<PyEditor
-  title='help exercise'
-  defaultCode='help(print)'
-/>
-
-
-
-
 <Heading level={2} id="variables" />
 ## Variables {{ anchor: false }}
 
-Variables are used to store data that can be used later in your code.
-You can use them to store the literal constants.
+Variables are used to store values like the literal constants we learned about earlier.
 
 ```python
 whole_number = 25
@@ -182,9 +156,8 @@ number_1 = 1
 ```
 
 Variables are created by assigning a value to a name.
-This can be any combination of letters, numbers, and underscores with a few exceptions.
-The first character cannot be a number, and the name cannot be a reserved word.
-You can see the keywords by running `help("keywords")`. The standard naming convention is to use
+This can be any combination of letters, numbers, and underscores,
+but the first character cannot be a number. The standard naming convention is to use
 lowercase letters and underscores to separate words. For example, `my_variable_name`.
 
 Printing a variable is like printing a literal constant, except you use the variable name instead.
@@ -197,7 +170,7 @@ another_variable = "hello"
 print("This is my variable:", my_variable)
 # This is my variable: 123
 print("and this is another variable:", another_variable)
-# this is another variable: hello
+# and this is another variable: hello
 ```
 
 Variables can also be reassigned to a new value.
@@ -257,16 +230,39 @@ checkCode = { (code) => {}}
 />
 
 
+<Heading level={2} id="print_formatting" />
+## Print Formatting {{ anchor: false }}
+
+An f-string is a way to format a string with variables, this can be useful when printing a message in a specific format.
+
+```python
+name = "John"
+age = 25
+print(f"Hello, my name is {name} and I am {age} years old.")
+# Hello, my name is John and I am 25 years old.
+```
+
+You can also add formatting to the variables.
+
+```python
+pi = 3.14159265359
+print(f"pi is {pi:.2f}")
+# pi is 3.14
+```
+
+
+
 <Heading level={2} id="input" />
 ## User Input {{ anchor: false }}
 
 
-The `input` function is used to get input from the user. You can also include a prompt message.
+The `input` function is used to get input from the user. Normally this would be through the command line,
+but for this course, it will be through a popup text box. The `input` function produces a string from the user input.
+You can also include a prompt message to display to the user.
 
 ```python
 query = input("hello, how are you today? ")
 ```
-
 
 ###  Exercise
 
