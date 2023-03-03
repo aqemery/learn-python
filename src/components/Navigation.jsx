@@ -196,7 +196,8 @@ export const navigation = [
       { title: 'Data Structures', href: '/data_structures' },
       { title: 'Exceptions', href: '/exceptions' },
       { title: 'Classes', href: '/classes' },
-      { title: 'Standard Library', href: '/standard_library' },
+      { title: 'Built-in Functions', href: '/built_in_functions' },
+      { title: 'Wrap up', href: '/wrap_up' },
 
     ],
   },

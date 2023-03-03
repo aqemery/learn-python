@@ -376,6 +376,7 @@ export function PyEditor({
                   onChange={onChange}
                   value={code}
                   className="h-[96%]"
+                  IndentOutdent={4}
                 />
               </div>
             </Tab.Panel>

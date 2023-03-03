@@ -1,0 +1,142 @@
+import { HeroPattern } from '@/components/HeroPattern'
+import { Heading } from '@/components/Heading'
+import { Hotkey } from '@/components/Hotkey'
+import { PyEditor } from '@/components/Editor'
+
+export const description = 'Wrap up'
+
+export const sections = [
+  { title: 'Exercises', id: 'exercises' },
+  { title: 'Congratulations!', id: 'congratulations' },
+  { title: "What's Next?", id: 'next' },
+]
+
+<HeroPattern />
+
+# Wrap Up
+
+We have covered a lot of content in this course.
+There is a lot more to learn about Python,
+but this has given you a good foundation to build on.
+
+But before we go, here are some exercises to practice what you have learned.
+
+<Heading level={2} id="exercises" />
+## Exercises {{ anchor: false }}
+
+Complete the following exercises, feel free to go back and review the content if you need to.
+
+### Lots of groceries
+
+A group of friends is carrying a bag of groceries each. Who is carrying the most weight? Print `{name} is carrying the most with {weight} pounds`
+for the person with the most weight.
+
+<PyEditor
+  title='Lots of groceries'
+  defaultCode={`friends = {
+    "David": [53, 39, 39, 47, 90, 49, 67, 85],
+    "Cayden": [71, 20, 56, 20, 48, 72, 60, 54],
+    "Aiden": [83, 22, 87, 86, 58, 79, 1, 96],
+    "Skyla": [15, 56, 28, 48, 16, 30, 58, 15],
+    "Cordell": [11, 73, 16, 42, 48, 72, 17, 41],
+    "Turner": [79, 51, 4, 52, 62, 65, 10, 23],
+    "Simon": [11, 100, 97, 70, 76, 100, 43, 97],
+    "Alden": [58, 93, 100, 6, 73, 54, 12, 41]
+}
+`}
+validation = {`
+status = {"done": True, "message": "Nice Job!"}
+
+if not "Simon is carrying the most with 594 pounds\\n" in \_output:
+status["done"] = False
+status["message"] = "Try again!"
+status
+`}
+checkCode = { (code) => {  
+}}
+/>
+
+### Even more groceries
+
+Unfortunately, the friends are carrying more groceries than they can handle.
+Given the list of grocery weights, print the maximum number of groceries
+the friends can carry if they can carry `1000` pounds.
+
+<PyEditor
+  title='Even more groceries'
+  defaultCode={`groceries = [20, 27, 108, 165, 11, 377, 268, 272, 65, 173, 340, 157, 3, 15]
+`}
+validation = {`
+status = {"done": True, "message": "Nice Job!"}
+
+if not "10\\n" in \_output:
+status["done"] = False
+status["message"] = "Try again!"
+status
+`}
+checkCode = { (code) => {  
+}}
+/>
+
+### Red, Green, and Blue
+
+A class of students is playing a game.
+They are sitting in a circle and have cards with the colors red, green, and blue on them.
+During each round, the students switch their cards
+to a different color based on the color the student to their left and right have.
+
+Each student follows only the first rule that applies to them. Here are the rules:
+
+1. If both the students to the left and right have the same card,
+   the student keeps their current card.
+2. If the student to the left has a different card than the student,
+   the student switches to that card.
+3. The student switches to the card of the student to the right.
+
+After `10` rounds, print the number of students with each color card on each line as follows:
+
+```
+red: 10
+green: 7
+blue: 4
+```
+
+Note: The students all switch their cards at the same time.
+
+<PyEditor
+  title='Red, Green, and Blue'
+  defaultCode={`students = ["red", "green", "blue", "green", "red", "blue", "red", "green", "green"]
+`}
+validation = {`
+status = {"done": True, "message": "Nice Job!"}
+
+if not "red: 3\\ngreen: 2\\nblue: 4\\n" in ''.join(\_output):
+status["done"] = False
+status["message"] = "Try again!"
+status
+`}
+checkCode = { (code) => {  
+}}
+/>
+
+<Heading level={2} id="congratulations" />
+## Congratulations! {{ anchor: false }}
+
+You have come a long way! Thank you for using this course to learn Python.
+I hope you enjoyed using it. If you have any feedback or suggestions, please
+let me know. I would love to hear from you. You can reach me through the platforms
+linked on my [website](https://adamemery.dev).
+
+<Heading level={2} id="next" />
+## What's Next?
+
+There are a lot of resources available to learn more about Python.
+
+- [A Byte of Python](https://python.swaroopch.com/) - A free book that covers the basics of Python, in a very readable format.
+  This course is structured similarly to this book.
+- [Python For Beginners](https://www.python.org/about/gettingstarted/) - The official
+  Python beginners guide will help you get started with
+  installing Python on your computer and has links to many other resources and tutorials.
+- [Python Discord](https://docs.python.org/3/) - Join the Python Discord server to ask questions and get help from other Python developers.
+- [Local User Groups](https://wiki.python.org/moin/LocalUserGroups) - Join a local Python user group to meet other Python developers in your area.
+  I am a member of [PyRVA](http://www.pyrva.org).
