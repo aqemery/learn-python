@@ -1,10 +1,12 @@
-import { Children, useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import Editor from '@monaco-editor/react'
 import { loadPyodide } from 'pyodide'
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 import Confetti from 'react-confetti'
+import { MessagerQueue } from "./messager";
 
+let queue = null;
 let pyodide = null
 
 function runIcon(props) {
@@ -21,7 +23,7 @@ function runIcon(props) {
 
 async function main() {
   let pyodide = await loadPyodide({
-    indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.22.1/full',
+    indexURL: 'pyodide/',
     stdin: () => {
       console.log('fire stdin')
       const r = prompt(pyprompt)
@@ -33,6 +35,7 @@ async function main() {
       console.log(text)
     },
   })
+
 
   console.log(
     pyodide.runPython(`
@@ -47,7 +50,8 @@ async function main() {
 function reset() {
   pyodide.runPython(`
     globals().clear()
-    import asyncio
+    import math
+    import json
     import js
     old_input_123 = input
     def input(prompt=None):
@@ -65,7 +69,22 @@ function reset() {
       _test_print_list.append(sep.join(str(x) for x in args)+end)
 
     print.__doc__ = old_print_123.__doc__
-  `)
+
+    def move(direction):
+      '''Move the mouse in the given direction. The direction must be an integer between 0 and 3. 0 is up, 1 is right, 2 is down, 3 is left.'''
+      if direction in [0, 1, 2, 3]:
+        return js.window.maze.moveMouse(direction)
+      else:
+        raise ValueError('Invalid direction, must be an integer between 0 and 3. 0 is up, 1 is right, 2 is down, 3 is left.')
+
+    def check(direction):
+      '''Check the given direction to get the tile type. The direction must be an integer between 0 and 3. 0 is up, 1 is right, 2 is down, 3 is left. Types are string values: 'wall', 'ground', 'start', 'finish'.'''
+      if direction in [0, 1, 2, 3]:
+        return js.window.maze.checkTile(direction)
+      else:
+        raise ValueError('Invalid direction, must be an integer between 0 and 3. 0 is up, 1 is right, 2 is down, 3 is left.')
+        
+`)
 }
 
 main().then((result) => {
@@ -145,8 +164,11 @@ export function PyEditor({
   preValidation,
   preRunCode,
   validation,
+  hide
 }) {
+  const ref = useRef(null);
   const [code, setCode] = useState(defaultCode)
+  const [hidden, setHidden] = useState(hide)
   const [output, setOutput] = useState()
   const [hint, setHint] = useState()
   const [done, setDone] = useState()
@@ -159,6 +181,16 @@ export function PyEditor({
   function onChange(value) {
     setCode(value)
   }
+
+  useEffect(() => {
+    queue = MessagerQueue.getInstance()
+    const data = {
+      "maze": []
+    }
+    queue.push("draw", data ,0)
+    console.log("instance", queue)
+  }, [])
+
 
   function resetDefualt(selectedIndex) {
     if (selectedIndex == 0) {
@@ -219,7 +251,7 @@ export function PyEditor({
       captureStdout('Error: Time limit exceeded')
       resolve({ error: 'Time limit exceeded' })
     }, 5000)
-    reset()
+    // reset()
     running = true
     if (preCode != undefined) {
       pyodide.runPython(preCode)
@@ -263,6 +295,11 @@ export function PyEditor({
     if (code == undefined) {
       return
     }
+    // setHidden(true)
+    // setTimeout(() => {
+    //   setHidden(false)
+    // }, 5000)
+
     setDone(undefined)
 
     let doVal = validation != undefined
@@ -348,6 +385,11 @@ export function PyEditor({
     }
   }
 
+  // setInterval(() => {
+  //   setHidden(!hidden)
+  // }, 1000)
+
+
   const languages = [
     'Average',
     'Insert',
@@ -357,31 +399,35 @@ export function PyEditor({
     'Code',
   ]
   let tabGroupProps = useTabGroupProps(languages)
-
   return (
     <>
-      <div className="not-prose relative my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10">
-        <Tab.Group {...tabGroupProps}>
+      <div 
+      style={{
+        visibility: hidden ? "hidden" : "visible",
+      }}
+      
+      className="h-screen not-prose relative overflow-hidden bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10">
+        <Tab.Group {...tabGroupProps} className="h-full" ref={ref} >
           <CodeGroupHeader
             title={title}
             selectedIndex={tabGroupProps.selectedIndex}
           ></CodeGroupHeader>
 
-          <Tab.Panels>
-            <Tab.Panel className="relative bg-[#1E1E1E]">
-              <div className="h-96 w-full">
+          <Tab.Panels className="h-full" >
+            <Tab.Panel className="h-full relative bg-[#1E1E1E]">
+              <div className="h-full w-full">
                 <Editor
                   defaultLanguage="python"
                   theme="vs-dark"
                   onChange={onChange}
                   value={code}
-                  className="h-[96%]"
                   IndentOutdent={4}
+                  autoLayout={true}
                 />
               </div>
             </Tab.Panel>
-            <Tab.Panel className="relative ">
-              <div className="block h-96 w-full resize-y overflow-auto overscroll-contain whitespace-pre-wrap border-gray-300 bg-neutral-800 p-4 font-mono text-zinc-300 shadow-sm transition-opacity duration-1000 sm:text-sm">
+            <Tab.Panel className="h-full rounded-lg relative bg-neutral-800">
+              <div className="block h-full w-full overflow-auto overscroll-contain whitespace-pre-wrap border-gray-300 bg-neutral-800 p-4 font-mono text-zinc-300 shadow-sm transition-opacity duration-1000 sm:text-sm">
                 {output}
               </div>
               <div className="overflow-auto whitespace-pre-wrap bg-neutral-800 pl-2 text-orange-500">

@@ -1,60 +1,50 @@
 import { HeroPattern } from '@/components/HeroPattern'
 import { Heading } from '@/components/Heading'
+import { Hotkey } from '@/components/Hotkey'
+import { PyEditor } from '@/components/Editor'
+import Draw from '@/components/Draw'
 
-export const description =
-  'Learn Python - No install Python lessons'
 
-export const sections = [
-  { title: 'Why should I learn Python? ', id: 'why-learn-python' },
-  { title: 'How is the course different?', id: 'how-is-this-course-different' },
-  { title: 'What will I learn?', id: 'what-will-I-learn' },
+import { Stage, Sprite, TilingSprite } from '@pixi/react'
+
+  <div class="bg-gray-400 h-screen w-screen relative z-0 flex justify-end">
+    <Stage className="absolute" width={800} height={900} >
+      <Draw />
+    </Stage>
+    <div className='absolute bg-white w-96 z-10'>
+      hello
+    </div>
+    <div className='absolute w-[50vw] w-max-[50vw] z-20'>
+
+    <PyEditor hidden={false}
+
+defaultCode={`
+up = 0
+right = 1
+down = 2
+left = 3
+
+path = [
+    down,
+    down,
+    down,
+    right,
+    right,
+    right,
+    down,
+    down,
+    left
 ]
 
-<HeroPattern />
+for p in path:
+    print(check(p))
+    move(p)
+`}
 
-# Introduction
+checkCode = { (code) => {}}
 
-Welcome! I am glad you are here, and I hope you are excited to learn Python. My name is Adam Emery. I am a software developer who has used Python
-for many years. 
+/>
 
-
-<div className="not-prose">
-  <Button
-    href="https://adamemery.dev"
-    variant="text"
-    arrow="right"
-    children="Checkout my website"
-  />
 </div>
 
-<Heading level={2} id="why-learn-python" />
-## Why should I learn Python? {{ anchor: false }}
-
-According to the [TIOBE index](https://www.tiobe.com/tiobe-index/) Python is the
-most widely used programming language right now. It also happens to be one of
-the simpler languages to learn. Python is also a versatile language that is
-free and open source. It's a great option to learn for both beginners and experienced
-programmers. Python is used in many fields for web applications, data analysis, machine learning, and task automation.
-Learning Python will give you a solid foundation for learning other languages,
-enable you to solve personal computer tasks, and provide in-demand skills.
-
-<Heading level={2} id="how-is-this-course-different" />
-## How is the course different?  {{ anchor: false }}
-
-This course simplifies the process of learning Python. Thanks
-to [Pyodide](https://pyodide.org/en/stable/) all you need to run Python
-is a browser. The same editor that powers the popular
-[VSCode](https://code.visualstudio.com) is also included for each exercise. 
-So we can get right to what you are here for, to learn Python!
-
-This course is both free and ad-free. If you find the course helpful, consider sponsoring me on [github](https://github.com/sponsors/aqemery).
-
-
-<Heading level={2} id="what-will-I-learn" />
-## What will I learn? {{ anchor: false }}
-
-The objective of this course is to get you up and
-running with Python quickly. You will solve real problems in
-interactive exercises to reinforce learning the fundamentals of Python.
-The lessons will be concise and focused on teaching what is required to
-complete the next exercise.
+</div>
