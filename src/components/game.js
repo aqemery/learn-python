@@ -66,8 +66,8 @@ class GameInstance {
 
         // console.log(x, screen.width/4, width)    
 
-        this.scene.x = -x + screen.width/8;
-        this.scene.y = -y + screen.height/4;
+        this.scene.x = Math.round(-x + screen.width/8);
+        this.scene.y = Math.round(-y + screen.height/4);
 
         if (this.scene.x < minX) {
             this.scene.x = minX;

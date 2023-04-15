@@ -12,7 +12,7 @@ export class Maze {
     this.height = 0
     this.width = 0
     this.tileTypes = null
-
+    
     const game = Game.getInstance()
     Promise.allSettled([
       Assets.load('../maze/maze.json'),
@@ -87,12 +87,13 @@ export class Maze {
       window.maze = this
     })
     console.log('this construct', this)
+    document.addEventListener('keydown', this.onKeyDown.bind(this))
   }
   checkTile(direction) {
     // check if mouse can move in direction of value 0-3
     // 0 = up, 1 = right, 2 = down, 3 = left
     // return the property type of the tile the mouse is moving to
-    
+
     let x = this.mouse.pos[0]
     let y = this.mouse.pos[1]
     switch (direction) {
@@ -123,7 +124,7 @@ export class Maze {
   moveMouse(direction) {
     // move mouse in direction of value 0-3
     // 0 = up, 1 = right, 2 = down, 3 = left
-    
+
     const type = this.checkTile(direction)
     console.log('type', type)
 
@@ -141,11 +142,37 @@ export class Maze {
     return true
   }
 
-
+  
   destroy() {
     console.log('destroying maze')
     if (this.mouse !== undefined && this.mouse !== null) {
-      this.mouse.destroy();
+      this.mouse.destroy()
+    }
   }
+
+  onKeyDown(key) {
+    // W Key is 87
+    // Up arrow is 87
+    if (key.keyCode === 87 || key.keyCode === 38) {
+      this.moveMouse(0)
+    }
+
+    // S Key is 83
+    // Down arrow is 40
+    if (key.keyCode === 83 || key.keyCode === 40) {
+      this.moveMouse(2)
+    }
+
+    // A Key is 65
+    // Left arrow is 37
+    if (key.keyCode === 65 || key.keyCode === 37) {
+      this.moveMouse(3)
+    }
+
+    // D Key is 68
+    // Right arrow is 39
+    if (key.keyCode === 68 || key.keyCode === 39) {
+      this.moveMouse(1)
+    }
   }
 }
