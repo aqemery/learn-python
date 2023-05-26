@@ -48,8 +48,8 @@ validation = {`
 status = {"done": True, "message": "Nice Job!"}
 
 if not "Simon is carrying the most with 594 pounds\\n" in \_output:
-status["done"] = False
-status["message"] = "Try again!"
+  status["done"] = False
+  status["message"] = "Try again!"
 status
 `}
 checkCode = { (code) => {  
@@ -70,8 +70,8 @@ validation = {`
 status = {"done": True, "message": "Nice Job!"}
 
 if not "10\\n" in \_output:
-status["done"] = False
-status["message"] = "Try again!"
+  status["done"] = False
+  status["message"] = "Try again!"
 status
 `}
 checkCode = { (code) => {  
@@ -111,8 +111,8 @@ validation = {`
 status = {"done": True, "message": "Nice Job!"}
 
 if not "red: 3\\ngreen: 2\\nblue: 4\\n" in ''.join(\_output):
-status["done"] = False
-status["message"] = "Try again!"
+  status["done"] = False
+  status["message"] = "Try again!"
 status
 `}
 checkCode = { (code) => {  
