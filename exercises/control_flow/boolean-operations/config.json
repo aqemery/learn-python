@@ -1,0 +1,10 @@
+{
+  "title": "Boolean operations exercise",
+  "preValidation": [
+    "x,y,z = 11,11,0",
+    "x,y,z = 1,0,10",
+    "x,y,z = 1,10,10",
+    "x,y,z = 11,11,0",
+    "x,y,z = 9,9,0"
+  ]
+}

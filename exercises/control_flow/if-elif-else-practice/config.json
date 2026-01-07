@@ -1,0 +1,8 @@
+{
+  "title": "if, elif, and else exercise",
+  "preValidation": [
+    "x = 1; _message = \"x is positive\\n\"; _fail = \"hmm, not quite for positive numbers\"",
+    "x = -1; _message = \"x is negative\\n\"; _fail = \"hmm, not quite for negative numbers\"",
+    "x = 0; _message = \"x is 0\\n\"; _fail = \"hmm, not quite for when x is 0\""
+  ]
+}

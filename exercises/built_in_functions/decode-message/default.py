@@ -1,0 +1,2 @@
+print(secret)
+print(key)

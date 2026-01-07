@@ -1,0 +1,2 @@
+print(numbers)
+counts = {}

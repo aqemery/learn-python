@@ -1,0 +1,64 @@
+{
+  "name": "learn-python-interactive",
+  "version": "1.0.0",
+  "description": "An interactive Python programming course with in-browser code execution",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aqemery/learn-python.git"
+  },
+  "keywords": [
+    "python",
+    "tutorial",
+    "education",
+    "interactive",
+    "learning",
+    "programming"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "browserslist": "defaults, not ie <= 11",
+  "dependencies": {
+    "@algolia/autocomplete-core": "^1.19.4",
+    "@algolia/autocomplete-preset-algolia": "^1.19.4",
+    "@headlessui/react": "^2.2.9",
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@monaco-editor/react": "^4.7.0",
+    "@next/mdx": "^15.1.8",
+    "@sindresorhus/slugify": "^2.2.1",
+    "@tailwindcss/typography": "^0.5.19",
+    "acorn": "^8.15.0",
+    "algoliasearch": "^4.25.3",
+    "autoprefixer": "^10.4.23",
+    "clsx": "^2.1.1",
+    "focus-visible": "^5.2.1",
+    "framer-motion": "^12.24.10",
+    "mdast-util-to-string": "^4.0.0",
+    "mdx-annotations": "^0.1.4",
+    "next": "^15.1.8",
+    "postcss": "^8.4.49",
+    "postcss-focus-visible": "^10.0.1",
+    "react": "^18.3.1",
+    "react-confetti": "^6.4.0",
+    "react-dom": "^18.3.1",
+    "recma-nextjs-static-props": "^2.0.2",
+    "rehype-mdx-title": "^3.2.0",
+    "remark-gfm": "^4.0.1",
+    "shiki": "^3.21.0",
+    "tailwindcss": "^3.4.19",
+    "unist-util-visit": "^5.0.0",
+    "zustand": "^5.0.9"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^15.1.8",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "raw-loader": "^4.0.2"
+  }
+}

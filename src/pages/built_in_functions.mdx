@@ -1,0 +1,141 @@
+import { Exercise } from '@/components/Exercise'
+
+export const description = 'Built in functions in Python.'
+
+export const sections = [
+  { title: 'Numbers', id: 'numbers' },
+  { title: 'Characters', id: 'characters' },
+  { title: 'Booleans', id: 'booleans' },
+  { title: 'Sequences', id: 'sequences' }
+]
+
+# Built-in Functions
+
+Python has many built-in functions that you can use. These functions are available without importing any modules.
+In this lesson, we will learn about a few of them. You can see a full list of built-in functions [here](https://docs.python.org/3/library/functions.html).
+
+## Numbers
+
+There are several functions available for working with numbers and lists of numbers. These include:
+
+- `abs()` - returns the absolute value of a number
+- `round()` - rounds a number to a given number of decimals
+- `divmod()` - returns both `//` and `%` in a single operation
+
+```python
+abs(-5) # 5
+round(3.14159) # 3
+round(3.14159, 2) # 3.14
+divmod(10, 3) # (3, 1)
+```
+
+Functions that take a list of numbers as an argument include:
+
+- `min()` - returns the smallest number in a list
+- `max()` - returns the largest number in a list
+- `sum()` - returns the sum of all numbers in a list
+
+```python
+x = [1, 2, 3]
+min(x) # 1
+max(x) # 3
+sum(x) # 6
+```
+## Characters
+
+The `ord()` and `chr()` functions allow you to convert a character to and from its Unicode code integer representation.
+
+```python
+ord('a') # 97
+chr(97) # 'a'
+```
+## Booleans
+
+The `any()` and `all()` functions are used to evaluate a list of booleans. Each item in the list
+is evaluated as a boolean, equivalent to `bool()` function.
+
+
+
+```python
+bool(0) # False
+bool(1) # True
+bool('') # False
+bool('a') # True
+
+any([True, False, False]) # True
+any([False, False, False]) # False
+any([1, 0, 0]) # True
+any([0, 0, 0]) # False
+any(['a', '', '']) # True
+any(['', '', '']) # False
+
+all([True, False, False]) # False
+all([True, True, True]) # True
+all([1, 0, 0]) # False
+all([1, 1, 1]) # True
+all(['a', '', '']) # False
+all(['a', 'a', 'a']) # True
+```
+## Sequences
+
+Several functions can be used to work with sequences. `sorted()` and `reversed()`
+return a new list with a changed order. The original list is not modified.
+
+```python
+x = [3, 1, 2]
+sorted(x) # [1, 2, 3]
+reversed(x) # [2, 1, 3]
+```
+
+The `enumerate()` function is used to iterate over a sequence when you need both the index and the value.
+
+```python
+x = ['a', 'b', 'c', 'c', 'b', 'a']
+for i, v in enumerate(x):
+    print(i, v) 
+    if i != 0 and v == x[i-1]:
+        print("two of the same value in a row")
+
+# 0 a
+# 1 b
+# 2 c
+# 3 c
+# two of the same value in a row
+# 4 b
+# 5 a
+```
+
+The `zip()` function is used to iterate over multiple sequences at the same time.
+
+```python
+x = ['a', 'b', 'c']
+y = [1, 2, 3]
+for i, j in zip(x, y):
+    print(i, j)
+
+# a 1
+# b 2
+# c 3
+```
+
+The `map()` function is used to apply a function to each item in a sequence.
+
+```python
+x = ["1", "2", "3"]
+y = list(map(int , x)) # [1, 2, 3]
+```
+
+
+## Exercise
+
+Given two lists of numbers called `secret` and `key`, use the following steps to decode the message.
+
+1. Get the absolute value of each number in `secret`
+2. For each index add the number in `key` to the result of step 1
+3. Reverse the order of the numbers in the result of step 2
+4. Use integer division to divide each number in the result of step 3 by `5`
+5. Add the index of each number in step 4 to its value
+6. Convert each value to a character
+7. use `''.join(list)` to convert a list of characters to a string
+
+<Exercise src="built_in_functions/decode-message" />

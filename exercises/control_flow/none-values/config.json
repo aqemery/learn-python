@@ -1,0 +1,8 @@
+{
+  "title": "None exercise",
+  "preValidation": [
+    "x,y,z = None,10,12",
+    "x,y,z = None,None,9",
+    "x,y,z = 7,8,9"
+  ]
+}

@@ -1,0 +1,99 @@
+import { Exercise } from '@/components/Exercise'
+
+export const description = 'Classes in Python'
+
+export const sections = [
+  { title: 'Creating a class', id: 'create' },
+  { title: 'Creating an instance', id: 'create-instance' },
+  { title: 'The `__init__` method', id: 'init' },
+]
+
+# Classes
+
+A class is a data structure that contains attributes and methods.
+You have already used classes in Python. For example, `int` and `list` are both classes.
+
+```python
+print(int) # <class 'int'>
+print(list) # <class 'list'>
+```
+
+In the `list` class the attribute is the data stored in the list and
+the methods are functions that can be called on the list, 
+such as `append` and `sort`.
+
+A class instance is an object that is created from a class. Using `int` as an example,
+`1` and `5` would be instances of the `int` class. 
+
+We can use the built-in function `isinstance` to check if an object is an instance of a class.
+Similarly, we can use the built-in function `type` to get the class of an object.
+
+```python
+isinstance(5, int) # True
+isinstance(5, list) # False
+print(type(5)) # <class 'int'>
+```
+
+## Creating a class
+
+The keyword `class` is used to create a class.
+
+```python
+class ClassDefinition:
+    attribute = 10
+    def method():
+        return 20
+
+print(ClassDefinition.attribute) # 10
+print(ClassDefinition.method()) # 20
+```
+
+### Creating an instance
+
+A class instance is an object that is created from a class.
+The `self` argument is automatically passed into instance methods
+when the method is called. It can be used
+to access the attributes and methods of the object.
+
+```python
+class ClassDefinition:
+    attribute = 10
+    def method(self):
+        return self.attribute * 2
+
+# use the class to create an object
+class_instance = ClassDefinition()
+print(class_instance.attribute) # 10
+print(class_instance.method()) # 20
+```
+
+## The `__init__` method
+
+Dunder methods are special methods that are used to define the behavior of a class.
+The `__init__` dunder method is one of these special methods. It is called when an object
+is created from a class to initialize the object with any attributes that are required.
+
+```python
+class ClassDefinition:
+    def __init__(self, attribute):
+        self.attribute = attribute
+
+    def method(self):
+        return self.attribute * 2
+
+# use the class to create an object
+class_instance = ClassDefinition(20)
+print(class_instance.attribute) # 20
+print(class_instance.method()) # 40
+```
+
+## Exercise
+
+1. Create a class called `Person`
+2. Add two attributes: `name` and `age` that can be set when the object is created.
+3. Create a method called `introduce` that prints a string in the format: 
+
+`Hi, My name is Joe and I am 12 years old.`
+
+<Exercise src="classes/person-class" />
+

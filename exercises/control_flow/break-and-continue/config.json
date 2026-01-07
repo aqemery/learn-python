@@ -1,0 +1,8 @@
+{
+  "title": "Break and continue exercise",
+  "preValidation": [
+    "x = 10",
+    "x = 17",
+    "x = 50"
+  ]
+}

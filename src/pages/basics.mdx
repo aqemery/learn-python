@@ -1,0 +1,180 @@
+import { Exercise } from '@/components/Exercise'
+
+export const description =
+  'Python basics: data types, variables, and printing'
+
+export const sections = [
+  { title: 'Literal Constants', id: 'constants' },
+  { title: 'Printing', id: 'printing' },
+  { title: 'Comments', id: 'comments' },
+  { title: 'Variables', id: 'variables' },
+  { title: 'Print Formatting', id: 'print_formatting' },
+  { title: 'User Input', id: 'input' },
+]
+
+# Basics
+
+In this lesson, we will cover the basics of data types and variables.
+
+## Literal Constants
+
+literal constants are values written directly into your code.
+They can be one of several different data types: `int`, `float`, and `str`.
+
+<CodeGroup >
+
+```python {{ title: 'int'}}
+# An integer is a whole number
+1 
+1245
+-500
+```
+
+
+```python {{ title: 'float'}}
+# A floating point number has a decimal value
+1.5
+1500.5
+-1.0
+```
+
+```python {{ title: 'str'}}
+# A string is a sequence of characters.
+# You can specify a string with quotes
+"Hello"
+"this is a string"
+'Single quotes work too'
+```
+
+</CodeGroup >
+## Printing
+
+The `print` function is used to display text output from code.
+It takes a single argument as input, which can be any of the literal constants
+we just learned about.
+
+```python
+print("This is how you print")
+print("I can print more with another print call")
+```
+## Comments
+Comments are text inside your code that does not run. These are used for 
+documenting your code, taking notes, and 
+preventing certain sections of your code from running. In Python, a comment
+starts with the `#` character. 
+
+```python
+# This is a comment
+print("hi") # this is also a comment
+```
+
+
+### Exercise
+Use the print function to print the following values: `123`, `1.234`, `Hello, World!`.
+You can do this with 3 separate print calls, each on a new line.
+
+<Exercise src="basics/print-exercise" />
+
+
+
+### Exercise
+
+Try using comments to prevent the print function from running in the first two lines.
+
+<Exercise src="basics/comment-exercise" />
+
+## Variables
+
+Variables are used to store values like the literal constants we learned about earlier.
+
+```python
+whole_number = 25
+number_with_decimal = 1.245
+say_hello = "Hello, World!"
+five = 5
+one_half = 0.5
+message = "This is a message"
+number_1 = 1
+```
+
+Variables are created by assigning a value to a name.
+This can be any combination of letters, numbers, and underscores,
+but the first character cannot be a number. The standard naming convention is to use
+lowercase letters and underscores to separate words. For example, `my_variable_name`.
+
+Printing a variable is like printing a literal constant, except you use the variable name instead.
+You can print multiple variables by separating them with commas.
+
+
+```python
+my_variable = 123
+another_variable = "hello"
+print("This is my variable:", my_variable)
+# This is my variable: 123
+print("and this is another variable:", another_variable)
+# and this is another variable: hello
+```
+
+Variables can also be reassigned to a new value.
+
+```python
+my_name = 'John'
+my_name = 'Jane'
+```
+
+Variables are loosely typed, meaning Python will automatically determine the type of the
+variable based on the value you assign to it. This means you could have a variable that is a
+string one moment, and an integer the next.
+
+```python
+my_variable = "One Two Three"
+my_variable = 123
+```
+
+ 
+
+### Exercise
+
+Create a variable with an integer value, a variable with a float value, and a variable with a string value.
+Print all three on a single line. Additionally, reassign the variable `existing_variable` to a new value.
+
+<Exercise src="basics/variables-exercise" />
+
+## Print Formatting
+
+An f-string is a way to format a string with variables, this can be useful when printing a message in a specific format.
+
+```python
+name = "John"
+age = 25
+print(f"Hello, my name is {name} and I am {age} years old.")
+# Hello, my name is John and I am 25 years old.
+```
+
+You can also add formatting to the variables.
+
+```python
+pi = 3.14159265359
+print(f"pi is {pi:.2f}")
+# pi is 3.14
+```
+
+
+## User Input
+
+
+The `input` function is used to get input from the user. Normally this would be through the command line,
+but for this course, it will be through a popup text box. The `input` function produces a string from the user input.
+You can also include a prompt message to display to the user.
+
+```python
+query = input("hello, how are you today? ")
+```
+
+###  Exercise
+
+Using the `input` function, prompt the user for their name and store it in the variable `name`.
+
+<Exercise src="basics/input-exercise" />
+
+

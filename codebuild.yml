@@ -1,0 +1,17 @@
+version: 0.2
+
+env:
+  shell: bash
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - npm install react-is
+      - npm install
+  build:
+    on-failure: ABORT
+    commands:
+      - APPS=true npm run build
+      - aws s3 sync out s3://learn-python.adamemery.dev --delete --acl bucket-owner-full-control

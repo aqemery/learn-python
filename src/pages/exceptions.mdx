@@ -1,0 +1,167 @@
+import { Exercise } from '@/components/Exercise'
+
+export const description =
+  'Exceptions in python'
+
+export const sections = [
+  { title: 'Common Exception Types', id: 'types' },
+  { title: 'Handling Exceptions', id: 'handling' },
+]
+
+# Exceptions
+
+An exception is an error that occurs during the execution of a program. 
+When an exception occurs, the program stops and an error message is displayed.
+You have likely seen some exceptions already in the previous lessons.
+For example, if you try to divide a number by zero,
+you will get a ZeroDivisionError exception. Try it out in the editor below:
+
+
+<Exercise src="exceptions/exception-example" />
+
+## Common Exception Types
+
+There are several built-in exceptions in Python. Here are some of the most common ones:
+
+### IndentationError
+
+Occurs when there is a problem with the indentation of your code. 
+
+```python
+# IndentationError: unexpected indent
+x = 5
+y = 6
+ z = x + y
+
+# IndentationError: expected an indented block
+if x > 5:
+print("x is greater than 5")
+```
+
+### ValueError
+
+A `ValueError` occurs when a function receives a bad argument.
+For example, The Int function can convert a string to an integer,
+but only if the string contains a valid integer.
+
+```python
+y = int("24") # y = 24
+x = int("hello") # ValueError
+```
+
+### TypeError 
+
+A `TypeError` occurs when an operation is performed 
+between two incompatible types, but it can also
+occur when calling a function with the wrong
+number of arguments.
+
+```python
+# TypeError: can only concatenate str (not "int") to str
+x = "hello" + 5
+
+# TypeError: too many arguments
+int(1,2,3) 
+```
+
+### NameError
+
+A `NameError` occurs when you use a variable
+that doesn't exist.
+
+```python
+print(x) # NameError
+```
+
+### IndexError
+
+An `IndexError` occurs when you try to get
+the index of a sequence that is out of range.
+
+```python
+x = [1, 2, 3]
+x[5] # IndexError
+```
+
+### KeyError
+
+A `KeyError` occurs when you try to get a
+value in a dictionary using a key that doesn't exist.
+
+```python
+x = {"a": 1, "b": 2}
+x["c"] # KeyError
+```
+
+## Handling Exceptions
+
+Often you will want your program to continue to run in spite
+of an exception. 
+
+The `try` and `except` are used to handle exceptions.
+Which means doing something when an exception occurs.
+
+```python
+try:
+    print(x)
+except:
+    print("x is not defined")
+``` 
+
+In the example above, we try to print the variable `x`, but
+it doesn't exist, so we get a `NameError`.
+However, since the print statement is inside a `try` block,
+the program does not crash and instead prints "x is not defined".
+
+In this example, we did not specify which exception to handle.
+This means that the except block will handle any type of exception.
+It is however best practice to specify which exception to handle.
+
+```python
+try:
+    print(x)
+except NameError:
+    print("x is not defined")
+```
+
+`try` blocks function like if statements, in that you can have additional
+`except` blocks to handle different exceptions, and an `else` block if
+no exception occurs, and a `finally` block always executes when
+the `try` block is finished.
+
+```python
+try:
+    print(x)
+    5/0
+except NameError:
+    print("x is not defined")
+except ZeroDivisionError:
+    print("You can't divide by zero")
+except:
+    print("Something else went wrong")
+else:
+    print("Nothing went wrong")
+finally:
+    print("The 'try except' is finished")
+```
+
+### Getting the exception
+
+You may want to do something with the exception object,
+like printing the error message. You can use `as` keyword,
+to assign the exception object to a variable. Then you can
+access the exception object's properties and methods, such
+as its message.
+
+```python
+try:
+    print(x)
+except NameError as e:
+    print(e.message)
+```
+
+### Exercise
+
+Add error handling to the functions below. When an error occurs, return the error type.
+
+<Exercise src="exceptions/error-handling" />

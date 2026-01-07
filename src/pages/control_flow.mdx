@@ -1,0 +1,357 @@
+import { Exercise } from '@/components/Exercise'
+
+export const description = 'Control Flow'
+
+export const sections = [
+  { title: 'Booleans and Comparison', id: 'booleans' },
+  { title: 'If Statements', id: 'if' },
+  { title: 'Else and Else If', id: 'else' },
+  { title: 'While Loops', id: 'while' },
+  { title: 'For Loops', id: 'for' },
+  { title: 'Break and Continue', id: 'break-continue' },
+  { title: 'None', id: 'none' },
+  { title: 'Boolean Operations', id: 'logical'}
+]
+
+# Control Flow
+
+We can use control flow statements to change the execution of a program based on certain conditions, such as the value of a variable.
+
+## Booleans and Comparison
+
+A Boolean is another data type in Python. It can have one of two values: `True` or `False`.
+They can be a literal constant or the result of a comparison operator.
+
+```python
+is_true = True
+is_false = False
+```
+
+We can use a set of operators to compare two values and output a Boolean value.
+These operators include:
+
+- `>` greater than,
+- `<` less than,
+- `>=` greater than or equal to,
+- `<=` less than or equal to,
+- `==` equal to,
+- `!=` not equal to.
+
+Here are some examples of comparison operators in action:
+
+<CodeGroup >
+```python {{ title: 'Greater'}}
+# Greater than
+4 > 3 # True
+10 > 10 # False
+
+# Greater than or equal to
+
+4 >= 3 # True
+10 >= 10 # True
+
+````
+
+```python {{ title: 'Less'}}
+# Less than
+4 < 4 # False
+3 < 4 # True
+
+# Less than or equal to
+4 <= 4 # True
+3 <= 4 # True
+````
+
+```python {{ title: 'Equal' }}
+# Equal to
+4 == 4 # True
+3 == 4 # False
+
+# Not equal to
+4 != 4 # False
+3 != 4 # True
+```
+
+</CodeGroup >
+## If Statements
+
+An `if` statement executes a block of code if given a boolean expression that evaluates to `True`.
+
+```python
+if True:
+    print('It is true!')
+```
+
+Indentation is used to define the scope of the `if` statement.
+A code block must be indented by the same amount, but the amount of indentation is up to you.
+
+```python
+if True:
+    # This is a code block
+    print('this will print')
+    print('this will also print')
+    # This is the end of the code block
+
+if False:
+    # This code block will not be executed
+    print('this will not print')
+    print('this will not print either')
+
+if x == 10:
+    # This code block will be executed if x is equal to 10
+    print('this might print')
+```
+
+You can even nest `if` statements inside of each other.
+
+```python
+if True:
+    print('this will print')
+    if False:
+        # this is a nested code block
+        print('this will not print')
+    print('this will also print')
+```
+
+
+### Exercise
+
+Provide a value for `x` such that only the last `print` statement is executed.
+
+<Exercise src="control_flow/if-statement-practice" />
+
+
+
+## Else and Else If
+
+An `if` statement can also be extended by adding an `else` statement.
+
+```python
+x = 6
+if x > 7:
+    print('x is greater than 7')
+else:
+    print('x is less than 7')
+```
+
+In the example above, the `else` statement is only executed if the `if` statement's expression
+evaluates to `False`.
+
+Additionally, you can add an `elif` statement to extend an `if` statement further.
+An `elif` is short for "else if" and is used to check for additional conditions. You can
+have as many `elif` statements as you want. The statements are evaluated from top to bottom,
+and the first one that evaluates to `True` is executed.
+
+```python
+x = 6
+if x > 7:
+    print('x is greater than 7')
+elif x > 5:
+    print('x is greater than 5')
+else:
+    print('x is less than 5')
+```
+
+In the example above, the `elif` statement only tries to run
+if the initial `if` statement evaluates to `False`.
+
+You need to be careful when ordering your `elif` statements, or this could result in unreachable code.
+
+```python
+x = 6
+if x > 5:
+    print('x is greater than 5')
+elif x > 7:
+    # this code will never run
+    print('x is greater than 7')
+else:
+    print('x is less than 5')
+```
+
+### Exercise
+
+Given a number `x` print out the following:
+1. If `x` is positive, print out `x is positive`.
+2. If `x` is negative, print out `x is negative`.
+3. If `x` is 0, print out `x is 0`.
+
+<Exercise src="control_flow/if-elif-else-practice" />
+## While loops
+
+A `while` statement is similar to an if statement. However, a `while` statement will
+continue to execute its code block as long as the expression evaluates to `True`.
+
+
+```python
+while True:
+    print("This will print over and over again")
+```
+
+It's important to be careful when writing `while` loops.
+If the expression never evaluates to `False`, the loop will never terminate
+and the program will not end.
+
+
+
+Using a variable to control the number of times a loop executes is a common pattern.
+
+```python
+times = 3
+while times > 0:
+    print("This will print 3 times")
+    times -= 1
+```
+In the example above, the `times` variable is 3. On each iteration of the loop the
+value is reduced by 1. Once the value of `times` is 0 the expression no longer evaluates to `True`.
+
+### Exercise
+
+Write a `while` loop that prints out the numbers 0 to 9.
+
+<Note>
+  You may need to reload this page if you accidentally write an infinite loop.
+</Note>
+
+<Exercise src="control_flow/while-loop-practice" />
+## For loops
+
+A `for` loop is used to iterate over a sequence such as a string, tuple, list, or dictionary
+(which we will learn about later). For now, we will use the range function to create loops
+that execute a specific number of times.
+
+```python
+for i in range(3):
+    print("This will print 3 times")
+```
+In the example above, the `range` function creates a sequence of numbers from 0 to 2.
+On each iteration of the loop, the next value in the sequence is assigned to the variable `i`.
+
+
+### Exercise
+
+Write a `for` loop that prints out the numbers 0 to 9.
+
+<Exercise src="control_flow/for-loop-practice" />
+## Break and Continue
+
+`break` and `continue` can be used in `while` and `for` loops
+to alter their behavior.
+
+A `break` statement will immediately exit the loop.
+
+```python
+while True:
+    print("This will only print once")
+    break
+```
+
+A `continue` statement starts the next iteration of the loop
+and skips the rest of the code block.
+
+```python
+while True:
+    print("This will print over and over again")
+    continue
+    print("This will never print")
+```
+
+`break` and `continue` are often used in conjunction with `if` statements.
+
+```python
+for i in range(10):
+    if i % 2 == 0:
+        continue
+    print(i)
+```
+
+The example above will print out the odd numbers from 1 to 9.
+The `continue` statement skips the rest of the code block when `i` is even.
+
+
+### Exercise
+
+Given a number `x`, use `continue` to print out even numbers from 0 to `x`. Use `break` Stop if you reach a number greater than 20.
+
+<Exercise src="control_flow/break-and-continue" />
+
+
+
+
+## None
+
+`None` is a value that represents the absence of a value.
+It is often used with if statements to check if a variable has a value.
+
+```python
+x = None
+if x is None:
+    x = "Default value"
+```
+In the example above, we check if `x` is `None` before
+assigning a value to it. This is most useful when the value of the variable
+is not known until later in the program.
+
+```python
+message = None
+if y == 1:
+    message = "y is 1"
+elif y == 2:
+    message = "y is 2"
+if message:
+    print(x)
+```
+In the example above, we assign `message` a value based on the value of `y`.
+Then check if `message` has a value before printing it out.
+
+
+
+
+### Exercise
+
+Given the variables `x`,`y`, and `z`, print the sum of the values that are not `None`.
+<Exercise src="control_flow/none-values" />
+## Boolean Operations
+
+Boolean operations are used to make more complex boolean expressions. 
+
+```python
+if x > 0 and y > 0:
+    print("Both x and y are positive")
+```
+
+In the example above, 
+we use the `and` operator to check if both `x` and `y` are positive. 
+You could achieve the same result with two `if` statements, but
+this is an example of how boolean operations can make your code more concise.
+
+```python
+if x > 0:
+    if y > 0:
+        print("Both x and y are positive")
+```
+
+There are three boolean operations:
+
+1. `and` - Returns True if both the operands are True, False otherwise.
+```python
+print(True and True) # True
+```
+2. `or` - Returns True if any of the operands are True, False otherwise.
+```python
+print(True or False) # True
+```
+
+3. `not` - Returns True if the operand is False, False otherwise.
+```python
+print(not True) # False
+```
+
+### Exercise
+
+Given the variables `x`,`y`, and `z` print the following:
+
+1. if `x` and `y` are greater than `10`, print `step 1 is True`
+2. if `z` or `y` is greater than `x`, print `step 2 is True`
+3. if step 2 is `False`, print `step 2 is False`
+
+<Exercise src="control_flow/boolean-operations" />
