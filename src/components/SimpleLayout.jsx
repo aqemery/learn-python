@@ -3,16 +3,16 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const navigation = [
-  { name: 'Basics', href: '/basics' },
-  { name: 'Operators & Expressions', href: '/operators_and_expressions' },
-  { name: 'Control Flow', href: '/control_flow' },
-  { name: 'Functions', href: '/functions' },
-  { name: 'Data Structures', href: '/data_structures' },
-  { name: 'Modules', href: '/modules' },
-  { name: 'Built-in Functions', href: '/built_in_functions' },
-  { name: 'Classes', href: '/classes' },
-  { name: 'Exceptions', href: '/exceptions' },
-  { name: 'Wrap Up', href: '/wrap_up' },
+  { name: 'Basics', href: './basics' },
+  { name: 'Operators & Expressions', href: './operators_and_expressions' },
+  { name: 'Control Flow', href: './control_flow' },
+  { name: 'Functions', href: './functions' },
+  { name: 'Data Structures', href: './data_structures' },
+  { name: 'Modules', href: './modules' },
+  { name: 'Built-in Functions', href: './built_in_functions' },
+  { name: 'Classes', href: './classes' },
+  { name: 'Exceptions', href: './exceptions' },
+  { name: 'Wrap Up', href: './wrap_up' },
 ]
 
 function Sidebar() {
